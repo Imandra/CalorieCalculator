@@ -1,0 +1,23 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+thead {
+    background-color: #d9edf7;
+}
+
+tfoot {
+    font-weight: bold;
+}
+
+.minus, .plus {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    color: #298dcd;
+}
+
+.about {
+    text-indent: 15px;
+}
