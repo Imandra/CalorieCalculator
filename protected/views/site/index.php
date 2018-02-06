@@ -21,7 +21,7 @@ $this->pageTitle=Yii::app()->name;
         $sum_fats = 0;
         $sum_carbohydrates = 0;
         $sum_calories = 0;
-        echo '<table class="table table-bordered"><thead><tr><th width="20%">Наименование продукта</th><th width="15%">Вес, г</th>
+        echo '<table class="table table-bordered"><thead><tr><th width="20%">Наименование продукта</th><th width="15%">Вес&nbsp;продукта, г</th>
             <th width="15%">Белки, г</th><th width="15%">Жиры, г</th><th width="15%">Углеводы, г</th>
             <th width="15%">Калории, Ккал</th><th width="5%"></th></tr></thead><tbody>';
         foreach ($menu as $id => $product) {

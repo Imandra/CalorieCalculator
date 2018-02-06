@@ -20,8 +20,6 @@ $this->breadcrumbs=array(
         ),
     )); ?>
 
-	<!--<p class="note">Fields with <span class="required">*</span> are required.</p>-->
-
 </div>
 <div>
     <?php echo $form->labelEx($model,'username'); ?>
@@ -33,12 +31,6 @@ $this->breadcrumbs=array(
     <?php echo $form->labelEx($model,'password'); ?>
     <?php echo $form->passwordField($model,'password'); ?>
     <?php echo $form->error($model,'password'); ?>
-</div>
-
-<div>
-    <?php //echo $form->checkBox($model,'rememberMe'); ?>
-    <?php //echo $form->label($model,'rememberMe'); ?>
-    <?php //echo $form->error($model,'rememberMe'); ?>
 </div>
 
 <div>
