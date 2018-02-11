@@ -43,7 +43,9 @@
     <div>
         <hr>
         <footer>
-            <?php echo Yii::powered()?>
+            <?php echo Yii::powered() ?><br/>
+            Сегодня:<?php $days = array(1 => 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье');
+            echo ' ' . date('d.m.Y ' . $days[date('N')]); ?>
         </footer>
     </div>
 </div><!--container-->
