@@ -2,6 +2,7 @@
 /* @var $this ProductController */
 /* @var $model Product */
 
+$this->pageTitle=Yii::app()->name . ' - ' . Yii::t('product','Manage Product');
 
 $this->breadcrumbs=array(
     Yii::t('product','Products')=>array('index'),

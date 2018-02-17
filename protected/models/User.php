@@ -8,6 +8,9 @@
  * @property string $username
  * @property string $password
  * @property string $email
+ *
+ * Custom
+ * @property array $diaryOptions
  */
 class User extends CActiveRecord
 {
@@ -43,6 +46,7 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'diary' => array(self::HAS_MANY, 'Diary', 'user_id'),
 		);
 	}
 
@@ -125,5 +129,13 @@ class User extends CActiveRecord
     public function validatePassword($password)
     {
         return $this->hashPassword($password)===$this->password;
+    }
+
+    /**
+     * @return array массив значений поля дата модели Diary для данного юзера
+     */
+    public function getDiaryOptions()
+    {
+        return CHtml::listData($this->diary, 'id','date');
     }
 }

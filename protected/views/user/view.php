@@ -1,6 +1,8 @@
 <?php
 /* @var $this UserController */
 /* @var $model User */
+
+$this->pageTitle=Yii::app()->name . ' - ' . $model->username;
 ?>
 
 <?php

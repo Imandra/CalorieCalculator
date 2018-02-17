@@ -1,6 +1,8 @@
 <?php
 /* @var $this UserController */
 /* @var $dataProvider CActiveDataProvider */
+
+$this->pageTitle=Yii::app()->name . ' - ' . Yii::t('user','Users');
 ?>
 
 <?php

@@ -18,5 +18,6 @@ return array(
     'Advanced Search' => 'Расширенный поиск',
     'You may optionally enter a comparison operator (<, <=, >, >=, <> or =) at the beginning of each of your search values to specify how the comparison should be done.' =>
         'Для поиска можно использовать операторы сравнения (<, <=, >, >=, <> или =), которые следует вводить перед заданным вами значением.',
-    'Are you sure you want to delete this item?' => 'Вы уверены, что хотите удалить эту запись?'
+    'Are you sure you want to delete this item?' => 'Вы уверены, что хотите удалить эту запись?',
+    'Data Saved!' => 'Данные успешно сохранены!',
 );

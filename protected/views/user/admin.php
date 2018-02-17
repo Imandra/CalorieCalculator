@@ -2,6 +2,7 @@
 /* @var $this UserController */
 /* @var $model User */
 
+$this->pageTitle=Yii::app()->name . ' - ' . Yii::t('user','Manage User');
 
 $this->breadcrumbs=array(
     Yii::t('user','Users')=>array('index'),

@@ -3,7 +3,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css">
+    <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/style.css"); ?>
     <?php Yii::app()->bootstrap->register(); ?>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -21,6 +21,7 @@
                 array('label' => Yii::t('default', 'About'), 'url' => array('/site/page', 'view' => 'about')),
                 /*array('label' => Yii::t('default', 'Contact'), 'url' => array('/site/contact')),*/
                 array('label' => Yii::t('product', 'Products'), 'url' => array('/product/admin'), 'visible' => !Yii::app()->user->isGuest),
+                array('label' => Yii::t('diary', 'Diary'), 'url' => array('/diary/admin'), 'visible' => !Yii::app()->user->isGuest),
                 array('label' => Yii::t('user', 'Users'), 'url' => array('/user/admin'), 'visible' => !Yii::app()->user->isGuest),
                 array('label' => Yii::t('default', 'Login'), 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
                 array('label' => Yii::t('default', 'Logout').' (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)

@@ -1,6 +1,8 @@
 <?php
 /* @var $this ProductController */
 /* @var $dataProvider CActiveDataProvider */
+
+$this->pageTitle=Yii::app()->name . ' - ' . Yii::t('product','Products');
 ?>
 
 <?php

@@ -1,6 +1,8 @@
 <?php
 /* @var $this ProductController */
 /* @var $model Product */
+
+$this->pageTitle=Yii::app()->name . ' - ' . Yii::t('default','Update') . ' ' . $model->name;;
 ?>
 
 <?php

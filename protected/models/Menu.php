@@ -54,4 +54,10 @@ class Menu extends CFormModel
         }
         return $ids;
     }
+
+    public function unsetMenu()
+    {
+        if (isset($_SESSION['menu']))
+            unset($_SESSION['menu']);
+    }
 }
