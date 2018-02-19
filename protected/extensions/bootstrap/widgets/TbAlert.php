@@ -7,6 +7,8 @@
  * @package bootstrap.widgets
  */
 
+Yii::import('bootstrap.behaviors.TbWidget');
+
 /**
  * Bootstrap alert widget.
  * @see http://twitter.github.com/bootstrap/javascript.html#alerts
@@ -46,10 +48,10 @@ class TbAlert extends CWidget
         $this->attachBehavior('TbWidget', new TbWidget);
         $this->copyId();
         if (is_string($this->alerts)) {
-            $colors = explode(' ', $this->alerts);
+            $styles = explode(' ', $this->alerts);
         } else {
             if (!isset($this->alerts)) {
-                $colors = array(
+                $styles = array(
                     TbHtml::ALERT_COLOR_SUCCESS,
                     TbHtml::ALERT_COLOR_WARNING,
                     TbHtml::ALERT_COLOR_INFO,
@@ -57,10 +59,10 @@ class TbAlert extends CWidget
                 ); // render all styles by default
             }
         }
-        if (isset($colors)) {
+        if (isset($styles)) {
             $this->alerts = array();
-            foreach ($colors as $color) {
-                $this->alerts[$color] = array();
+            foreach ($styles as $style) {
+                $this->alerts[$style] = array();
             }
         }
     }
@@ -76,17 +78,17 @@ class TbAlert extends CWidget
             return;
         }
         echo TbHtml::openTag('div', $this->htmlOptions);
-        foreach ($this->alerts as $color => $alert) {
+        foreach ($this->alerts as $style => $alert) {
             if (isset($alert['visible']) && !$alert['visible']) {
                 continue;
             }
 
-            if ($user->hasFlash($color)) {
+            if ($user->hasFlash($style)) {
                 $htmlOptions = TbArray::popValue('htmlOptions', $alert, array());
                 TbArray::defaultValue('closeText', $this->closeText, $htmlOptions);
                 TbArray::defaultValue('block', $this->block, $htmlOptions);
                 TbArray::defaultValue('fade', $this->fade, $htmlOptions);
-                echo TbHtml::alert($color, $user->getFlash($color), $htmlOptions);
+                echo TbHtml::alert($style, $user->getFlash($style), $htmlOptions);
             }
         }
         echo '</div>';

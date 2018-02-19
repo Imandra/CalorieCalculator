@@ -42,31 +42,20 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<?php Yii::app()->clientScript->registerCss(1, <<<CSS
- .pager {
-    margin: 0;
-    text-align: left;
-    }
- .pager li>a {
-    border-radius: 0;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    }
-CSS
-);
-?>
-
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'user-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'username',
-		'password',
-		'email',
-		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-		),
-	),
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
+    'id' => 'user-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'template' => "{items}\n<div class=\"row-fluid\"><div class=\"span8\">{pager}</div><div class=\"span4\">{summary}</div></div>",
+    'pager' => array('class' => 'bootstrap.widgets.TbPager',
+        'maxButtonCount' => 5),
+    'columns' => array(
+        'id',
+        'username',
+        'password',
+        'email',
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+        ),
+    ),
 )); ?>

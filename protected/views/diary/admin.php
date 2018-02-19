@@ -35,44 +35,33 @@ $('.search-form form').submit(function(){
         ' at the beginning of each of your search values to specify how the comparison should be done.') ?>
 </p>
 
-<?php Yii::app()->clientScript->registerCss(1, <<<CSS
- .pager {
-    margin: 0;
-    text-align: left;
-    }
- .pager li>a {
-    border-radius: 0;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    }
-CSS
-);
-?>
-
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'diary-grid',
-	'dataProvider'=>$model->search(),
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
+    'id' => 'diary-grid',
+    'dataProvider' => $model->search(),
     'type' => TbHtml::GRID_TYPE_BORDERED,
-	'filter'=>$model,
-	'columns'=>array(
+    'filter' => $model,
+    'template' => "{items}\n<div class=\"row-fluid\"><div class=\"span8\">{pager}</div><div class=\"span4\">{summary}</div></div>",
+    'pager' => array('class' => 'bootstrap.widgets.TbPager',
+        'maxButtonCount' => 5),
+    'columns' => array(
         array(
             'name' => 'date',
             'type' => 'raw',
             'value' => '$data->date',
         ),
         array(
-            'name' =>'day_of_week',
+            'name' => 'day_of_week',
             'type' => 'raw',
             'value' => '$data->day_of_week',
         ),
         array(
-            'name' =>'calories_per_day',
+            'name' => 'calories_per_day',
             'type' => 'raw',
             'value' => '$data->calories_per_day',
         ),
-		/*array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
+        /*array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
             'template' => '{delete}',
-		),*/
-	),
+        ),*/
+    ),
 )); ?>

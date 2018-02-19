@@ -1,14 +1,22 @@
 <?php
 use Codeception\Util\Stub;
 
-require(__DIR__ . '/../../helpers/TbArray.php');
+Yii::import('bootstrap.helpers.TbArray');
 
-class TbArrayTest extends TbTestCase
+class TbArrayTest extends \Codeception\TestCase\Test
 {
    /**
     * @var \CodeGuy
     */
     protected $codeGuy;
+
+    protected function _before()
+    {
+    }
+
+    protected function _after()
+    {
+    }
 
     public function testGetValue()
     {

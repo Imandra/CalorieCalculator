@@ -7,6 +7,9 @@
  * @package bootstrap.widgets
  */
 
+Yii::import('bootstrap.behaviors.TbWidget');
+Yii::import('bootstrap.helpers.TbHtml');
+
 /**
  * Bootstrap navigation menu widget.
  * @see http://twitter.github.com/bootstrap/components.html#navbar
@@ -111,6 +114,10 @@ class TbNav extends CWidget
 
             if ($this->encodeLabel) {
                 $items[$i]['label'] = CHtml::encode($item['label']);
+            }
+
+            if (!isset($item['url']) && !isset($item['items'])) {
+                $items[$i]['header'] = true;
             }
 
             $hasActiveChild = false;

@@ -18,7 +18,10 @@ $this->menu=array(
 
 <h1><?php echo Yii::t('user','Users')?></h1>
 
-<?php $this->widget('bootstrap.widgets.TbListView',array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+<?php $this->widget('bootstrap.widgets.TbListView', array(
+    'dataProvider' => $dataProvider,
+    'itemView' => '_view',
+    'template' => "{items}\n<div class=\"row-fluid\"><div class=\"span8\">{pager}</div><div class=\"span4\">{summary}</div></div>",
+    'pager' => array('class' => 'bootstrap.widgets.TbPager',
+        'maxButtonCount' => 5),
 )); ?>
