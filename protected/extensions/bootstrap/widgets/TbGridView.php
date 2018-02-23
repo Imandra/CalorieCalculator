@@ -8,9 +8,12 @@
  * @package bootstrap.widgets
  */
 
-Yii::import('zii.widgets.grid.CGridView');
-Yii::import('bootstrap.helpers.TbHtml');
-Yii::import('bootstrap.widgets.TbDataColumn');
+try {
+    Yii::import('zii.widgets.grid.CGridView');
+    Yii::import('bootstrap.helpers.TbHtml');
+    Yii::import('bootstrap.widgets.TbDataColumn');
+} catch (CException $e) {
+}
 
 /**
  * Bootstrap Zii grid view.

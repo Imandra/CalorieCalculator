@@ -8,7 +8,10 @@
  * @package bootstrap.helpers
  */
 
-Yii::import('bootstrap.helpers.TbArray');
+try {
+    Yii::import('bootstrap.helpers.TbArray');
+} catch (CException $e) {
+}
 
 /**
  * Bootstrap HTML helper.
