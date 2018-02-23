@@ -26,11 +26,8 @@ class Menu extends CFormModel
      */
     public function unsetProduct($id)
     {
-        $product = Product::model()->findByPk($id);
-        if(isset($product)) {
-            if (isset($_SESSION['menu'][$product->id]))
-                unset($_SESSION['menu'][$product->id]);
-        }
+        if (isset($_SESSION['menu'][$id]))
+            unset($_SESSION['menu'][$id]);
     }
 
     /**
