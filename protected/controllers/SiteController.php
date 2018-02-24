@@ -32,26 +32,26 @@ class SiteController extends Controller
         $product = new Product();
         $list = $product->availableProducts;
 
-        $menu = new Menu();
-        $this->render('index', array('list' => $list, 'menu' => $menu->getMenu()));
+        $calculate = new Calculate();
+        $this->render('index', array('list' => $list, 'calculate' => $calculate->getCalculate()));
     }
 
-    public function actionAddToMenu()
+    public function actionAddToCalculate()
     {
         if (isset($_POST['id'])) {
             $id = (int)$_POST['id'];
-            $menu = new Menu();
-            $menu->setProduct($id);
+            $calculate = new Calculate();
+            $calculate->addProduct($id);
         }
         $this->redirect(array('index'));
     }
 
-    public function actionDeleteFromMenu()
+    public function actionDeleteFromCalculate()
     {
         if (isset($_POST['delete'])) {
             $id = (int)$_POST['delete'];
-            $menu = new Menu();
-            $menu->unsetProduct($id);
+            $calculate = new Calculate();
+            $calculate->deleteProduct($id);
         }
         $this->redirect(array('index'));
     }
@@ -61,8 +61,8 @@ class SiteController extends Controller
         if (isset($_POST['idp']) && isset($_POST['weight'])) {
             $id = (int)$_POST['idp'];
             $weight = (int)$_POST['weight'];
-            $menu = new Menu();
-            $menu->setProduct($id, $weight);
+            $calculate = new Calculate();
+            $calculate->changeWeight($id, $weight);
         }
         $this->redirect(array('index'));
     }

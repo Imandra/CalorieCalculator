@@ -115,12 +115,12 @@ class Product extends CActiveRecord
      */
     public function getAvailableProducts()
     {
-        $menu = new Menu();
+        $calculate = new Calculate();
         $criteria = new CDbCriteria;
         // сортируем по названию продукта
         $criteria->order = 'name';
         // исключаем уже выбранные продукты
-        $criteria->addNotInCondition('id', $menu->getSelectedProdIds());
+        $criteria->addNotInCondition('id', $calculate->getIdsOfAddedProducts());
 
         $products = self::model()->findAll($criteria);
         // при помощи listData создаем массив вида $ключ=>$значение

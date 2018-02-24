@@ -16,7 +16,7 @@ $this->pageTitle = Yii::app()->name;
     <h1><?php echo Yii::app()->name ?></h1>
 
 
-    <?php echo CHtml::beginForm(array('site/addToMenu'), 'post'); ?>
+    <?php echo CHtml::beginForm(array('site/addToCalculate'), 'post'); ?>
     <?php echo TbHtml::label('Выберите продукт:', 'id'); ?>
     <?php echo TbHtml::dropDownList('id', '', $list, array('empty' => '', 'onchange' => 'this.form.submit()')); ?>
     <?php echo CHtml::endForm(); ?>
@@ -25,7 +25,7 @@ $this->pageTitle = Yii::app()->name;
 
 <div>
     <?php
-    if (!empty($menu)) {
+    if (!empty($calculate)) {
         $sum_weight = 0;
         $sum_proteins = 0;
         $sum_fats = 0;
@@ -34,7 +34,7 @@ $this->pageTitle = Yii::app()->name;
         echo '<table class="table table-bordered"><thead><tr><th width="20%">Наименование продукта</th><th width="15%">Вес&nbsp;продукта, г</th>
             <th width="15%">Белки, г</th><th width="15%">Жиры, г</th><th width="15%">Углеводы, г</th>
             <th width="15%">Калории, Ккал</th><th width="5%"></th></tr></thead><tbody>';
-        foreach ($menu as $id => $product) {
+        foreach ($calculate as $id => $product) {
             $sum_weight += $product['weight'];
             $sum_proteins += $product['proteins'];
             $sum_fats += $product['fats'];
@@ -53,7 +53,7 @@ $this->pageTitle = Yii::app()->name;
 
             <?php echo '</td><td>' . $product['proteins'] . '</td><td>' . $product['fats'] . '</td><td>' .
                 $product['carbohydrates'] . '</td><td>' . $product['calories'] . '</td><td>'; ?>
-            <?php echo CHtml::beginForm(array('site/deleteFromMenu'), 'post', array('style' => 'margin: 0')); ?>
+            <?php echo CHtml::beginForm(array('site/deleteFromCalculate'), 'post', array('style' => 'margin: 0')); ?>
             <?php echo CHtml::tag('button', array('name' => 'delete', 'type' => 'submit', 'style' => 'color:#f00', 'value' => $id, 'class' => 'btn btn-default btn-xs'), '&#10005;') ?>
             <?php echo CHtml::endForm(); ?>
             <?php echo '</td></tr>';

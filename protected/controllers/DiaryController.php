@@ -201,8 +201,8 @@ class DiaryController extends Controller
                 $diary->calories_per_day = $sum;
             }
             if ($diary->save()) {
-                $menu = new Menu();
-                $menu->unsetMenu();
+                $calculate = new Calculate();
+                $calculate->deleteCalculate();
                 Yii::app()->user->setFlash('success', Yii::t('default', 'Data Saved!'));
                 $this->redirect(array('site/index'));
             }
