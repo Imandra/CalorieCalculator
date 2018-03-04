@@ -1,6 +1,6 @@
 <?php
-/* @var $this DiaryController */
-/* @var $model Diary */
+/* @var $this DailyReportController */
+/* @var $model DailyReport */
 /* @var $form CActiveForm */
 ?>
 
@@ -17,7 +17,11 @@
 
                     <?php echo $form->textFieldControlGroup($model,'date',array('span'=>5)); ?>
 
-                    <?php echo $form->textFieldControlGroup($model,'day_of_week',array('span'=>5,'maxlength'=>128)); ?>
+                    <?php echo $form->textFieldControlGroup($model,'proteins_per_day',array('span'=>5)); ?>
+
+                    <?php echo $form->textFieldControlGroup($model,'fats_per_day',array('span'=>5)); ?>
+
+                    <?php echo $form->textFieldControlGroup($model,'carbohydrates_per_day',array('span'=>5)); ?>
 
                     <?php echo $form->textFieldControlGroup($model,'calories_per_day',array('span'=>5)); ?>
 

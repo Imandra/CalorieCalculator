@@ -46,7 +46,8 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'diary' => array(self::HAS_MANY, 'Diary', 'user_id'),
+            'meal' => array(self::HAS_MANY, 'Meal', 'user_id'),
+            'dailyReport' => array(self::HAS_MANY, 'DailyReport', 'user_id'),
 		);
 	}
 
@@ -132,10 +133,10 @@ class User extends CActiveRecord
     }
 
     /**
-     * @return array массив значений поля дата модели Diary для данного юзера
+     * @return array массив значений поля дата модели DailyReport для данного юзера
      */
-    public function getDiaryOptions()
+    public function getDailyReportOptions()
     {
-        return CHtml::listData($this->diary, 'id','date');
+        return CHtml::listData($this->dailyReport, 'id','date');
     }
 }

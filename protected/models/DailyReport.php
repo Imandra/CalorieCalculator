@@ -1,46 +1,51 @@
 <?php
 
 /**
- * This is the model class for table "{{diary}}".
+ * This is the model class for table "{{daily_report}}".
  *
- * The followings are the available columns in table '{{diary}}':
+ * The followings are the available columns in table '{{daily_report}}':
  * @property integer $id
  * @property integer $user_id
  * @property string $date
- * @property string $day_of_week
- * @property float $calories_per_day
+ * @property double $proteins_per_day
+ * @property double $fats_per_day
+ * @property double $carbohydrates_per_day
+ * @property double $calories_per_day
+ *
+ * Custom
+ * @property string $dayOfWeek
  *
  * The followings are the available model relations:
  * @property User $user
  */
-class Diary extends CActiveRecord
+class DailyReport extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return '{{diary}}';
+		return '{{daily_report}}';
 	}
 
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-    public function rules()
-    {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return array(
-            array('user_id, date, day_of_week, calories_per_day', 'required'),
-            array('user_id', 'numerical', 'integerOnly' => true),
-            array('day_of_week', 'length', 'max' => 128),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, date, day_of_week, calories_per_day', 'safe', 'on' => 'search'),
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			array('user_id, date, proteins_per_day, fats_per_day, carbohydrates_per_day, calories_per_day', 'required'),
+			array('user_id', 'numerical', 'integerOnly'=>true),
+			array('proteins_per_day, fats_per_day, carbohydrates_per_day, calories_per_day', 'numerical'),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, user_id, date, proteins_per_day, fats_per_day, carbohydrates_per_day, calories_per_day', 'safe', 'on'=>'search'),
             array('date', 'ext.validators.UniqueAttributesValidator', 'with' => 'user_id',
-                'message' => 'Запись с текущей датой для этого пользователя уже существует'),
-        );
-    }
+                'message' => 'Запись с такой датой для этого пользователя уже существует'),
+		);
+	}
 
 	/**
 	 * @return array relational rules.
@@ -50,7 +55,7 @@ class Diary extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -60,11 +65,13 @@ class Diary extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => Yii::t('diary','ID'),
-			'user_id' => Yii::t('diary','User ID'),
-			'date' => Yii::t('diary','Date'),
-			'day_of_week' => Yii::t('diary','Day Of Week'),
-			'calories_per_day' => Yii::t('diary','Calories Per Day'),
+			'id' => Yii::t('dailyReport','ID'),
+			'user_id' => Yii::t('dailyReport','User ID'),
+			'date' => Yii::t('dailyReport','Date'),
+			'proteins_per_day' => Yii::t('dailyReport','Proteins Per Day'),
+			'fats_per_day' => Yii::t('dailyReport','Fats Per Day'),
+			'carbohydrates_per_day' => Yii::t('dailyReport','Carbohydrates Per Day'),
+			'calories_per_day' => Yii::t('dailyReport','Calories Per Day'),
 		);
 	}
 
@@ -89,28 +96,39 @@ class Diary extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('date',$this->date,true);
-		$criteria->compare('day_of_week',$this->day_of_week,true);
+		$criteria->compare('proteins_per_day',$this->proteins_per_day);
+		$criteria->compare('fats_per_day',$this->fats_per_day);
+		$criteria->compare('carbohydrates_per_day',$this->carbohydrates_per_day);
 		$criteria->compare('calories_per_day',$this->calories_per_day);
 
         $criteria->addCondition('user_id=' . Yii::app()->user->id);
 
 		return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
+			'criteria'=>$criteria,
             'pagination' => array('pageSize' => 10),
             'sort' => array(
                 'defaultOrder' => 'date DESC'
             )
-        ));
+		));
 	}
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Diary the static model class
+	 * @return DailyReport the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+
+    /**
+     * Виртуальное поле $dayOfWeek, день недели
+     * @return string
+     */
+    public function getDayOfWeek()
+    {
+        return Yii::app()->params['days'][date('N', strtotime($this->date))];
+    }
 }

@@ -62,7 +62,9 @@ $this->pageTitle = Yii::app()->name;
             $sum_fats . '</td><td>' . $sum_carbohydrates . '</td><td>' . $sum_calories . '</td><td></td></tr></tfoot></table>';
         ?>
         <?php if (!Yii::app()->user->isGuest) : ?>
-            <?php echo TbHtml::linkButton('Сохранить в дневник', array('submit' => array('diary/save', 'sum' => $sum_calories), 'name' => 'save', 'class' => 'btn btn-primary'))?>
+            <?php echo TbHtml::linkButton('Сохранить в дневник', array('submit' => array('meal/save',
+                'proteins' => $sum_proteins, 'fats' => $sum_fats, 'carbohydrates' => $sum_carbohydrates, 'calories' => $sum_calories),
+                'name' => 'save', 'class' => 'btn btn-primary'))?>
         <?php endif;
     }
     ?>

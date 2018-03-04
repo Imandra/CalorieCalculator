@@ -20,9 +20,9 @@
                 array('label' => Yii::t('default', 'Home'), 'url' => array('/site/index')),
                 array('label' => Yii::t('default', 'About'), 'url' => array('/site/page', 'view' => 'about')),
                 /*array('label' => Yii::t('default', 'Contact'), 'url' => array('/site/contact')),*/
-                array('label' => Yii::t('product', 'Products'), 'url' => array('/product/admin'), 'visible' => !Yii::app()->user->isGuest),
-                array('label' => Yii::t('diary', 'Diary'), 'url' => array('/diary/admin'), 'visible' => !Yii::app()->user->isGuest),
-                array('label' => Yii::t('user', 'Users'), 'url' => array('/user/admin'), 'visible' => !Yii::app()->user->isGuest),
+                array('label' => Yii::t('product', 'Products'), 'url' => array('/product/create'), 'visible' => !Yii::app()->user->isGuest),
+                array('label' => Yii::t('dailyReport', 'Daily Report'), 'url' => array('/dailyReport/admin'), 'visible' => !Yii::app()->user->isGuest),
+                array('label' => Yii::t('user', 'Users'), 'url' => array('/user/create'), 'visible' => !Yii::app()->user->isGuest),
                 array('label' => Yii::t('default', 'Login'), 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
                 array('label' => Yii::t('default', 'Logout').' (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
             ),
@@ -45,8 +45,7 @@
         <hr>
         <footer>
             <?php echo Yii::powered() ?><br/>
-            Сегодня:<?php $days = array(1 => 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье');
-            echo ' ' . date('d.m.Y ' . $days[date('N')]); ?>
+            <?php echo date('Сегодня: d.m.Y ' . Yii::app()->params['days'][date('N')]); ?>
         </footer>
     </div>
 </div><!--container-->

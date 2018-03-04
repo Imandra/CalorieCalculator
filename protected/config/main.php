@@ -105,5 +105,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+        'days' => $days = array( 1 => 'пн' , 'вт' , 'ср' , 'чт' , 'пт' , 'сб' , 'вс' ),
 	),
 );

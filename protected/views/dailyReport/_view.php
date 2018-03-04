@@ -1,6 +1,6 @@
 <?php
-/* @var $this DiaryController */
-/* @var $data Diary */
+/* @var $this DailyReportController */
+/* @var $data DailyReport */
 ?>
 
 <div class="view">
@@ -17,13 +17,23 @@
 	<?php echo CHtml::encode($data->date); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('day_of_week')); ?>:</b>
-	<?php echo CHtml::encode($data->day_of_week); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('proteins_per_day')); ?>:</b>
+	<?php echo CHtml::encode($data->proteins_per_day); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('fats_per_day')); ?>:</b>
+	<?php echo CHtml::encode($data->fats_per_day); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('carbohydrates_per_day')); ?>:</b>
+	<?php echo CHtml::encode($data->carbohydrates_per_day); ?>
+	<br />
+
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('calories_per_day')); ?>:</b>
 	<?php echo CHtml::encode($data->calories_per_day); ?>
 	<br />
 
+	*/ ?>
 
 </div>

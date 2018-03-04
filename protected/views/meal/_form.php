@@ -1,13 +1,13 @@
 <?php
-/* @var $this DiaryController */
-/* @var $model Diary */
+/* @var $this MealController */
+/* @var $model Meal */
 /* @var $form TbActiveForm */
 ?>
 
 <div class="form">
 
     <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'diary-form',
+	'id'=>'meal-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
 	// There is a call to performAjaxValidation() commented in generated controller code.
@@ -23,9 +23,13 @@
 
             <?php echo $form->textFieldControlGroup($model,'date',array('span'=>5)); ?>
 
-            <?php echo $form->textFieldControlGroup($model,'day_of_week',array('span'=>5,'maxlength'=>128)); ?>
+            <?php echo $form->textFieldControlGroup($model,'proteins',array('span'=>5)); ?>
 
-            <?php echo $form->textFieldControlGroup($model,'calories_per_day',array('span'=>5)); ?>
+            <?php echo $form->textFieldControlGroup($model,'fats',array('span'=>5)); ?>
+
+            <?php echo $form->textFieldControlGroup($model,'carbohydrates',array('span'=>5)); ?>
+
+            <?php echo $form->textFieldControlGroup($model,'calories',array('span'=>5)); ?>
 
         <div class="form-actions">
         <?php echo TbHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array(
