@@ -101,6 +101,11 @@ class Calculate extends CFormModel
     {
         $amounts = array();
         if (isset($_SESSION['calculate'])) {
+            $amounts['weight'] = 0;
+            $amounts['proteins'] = 0;
+            $amounts['fats'] = 0;
+            $amounts['carbohydrates'] = 0;
+            $amounts['calories'] = 0;
             foreach ($this->calculate as $product) {
                 $amounts['weight'] += $product['weight'];
                 $amounts['proteins'] += $product['proteins'];
