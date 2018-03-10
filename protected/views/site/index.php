@@ -7,9 +7,15 @@ $this->pageTitle = Yii::app()->name;
 
 <div>
 
-    <?php if(Yii::app()->user->hasFlash('success')):?>
+    <?php if (Yii::app()->user->hasFlash('success')): ?>
         <div class="flash-success">
             <?php echo Yii::app()->user->getFlash('success'); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (Yii::app()->user->hasFlash('error')): ?>
+        <div class="flash-error">
+            <?php echo Yii::app()->user->getFlash('error'); ?>
         </div>
     <?php endif; ?>
 
@@ -25,21 +31,11 @@ $this->pageTitle = Yii::app()->name;
 
 <div>
     <?php
-    if (!empty($calculate)) {
-        $sum_weight = 0;
-        $sum_proteins = 0;
-        $sum_fats = 0;
-        $sum_carbohydrates = 0;
-        $sum_calories = 0;
+    if (!empty($calculate) && !empty($amounts)) {
         echo '<table class="table table-bordered"><thead><tr><th width="20%">Наименование продукта</th><th width="15%">Вес&nbsp;продукта, г</th>
             <th width="15%">Белки, г</th><th width="15%">Жиры, г</th><th width="15%">Углеводы, г</th>
             <th width="15%">Калории, Ккал</th><th width="5%"></th></tr></thead><tbody>';
         foreach ($calculate as $id => $product) {
-            $sum_weight += $product['weight'];
-            $sum_proteins += $product['proteins'];
-            $sum_fats += $product['fats'];
-            $sum_carbohydrates += $product['carbohydrates'];
-            $sum_calories += $product['calories'];
             echo '<tr><td>' . $product['name'] . '</td><td>' ?>
 
             <?php echo CHtml::beginForm(array('site/changeProductWeight'), 'post', array('style' => 'margin: 0')); ?>
@@ -54,17 +50,49 @@ $this->pageTitle = Yii::app()->name;
             <?php echo '</td><td>' . $product['proteins'] . '</td><td>' . $product['fats'] . '</td><td>' .
                 $product['carbohydrates'] . '</td><td>' . $product['calories'] . '</td><td>'; ?>
             <?php echo CHtml::beginForm(array('site/deleteFromCalculate'), 'post', array('style' => 'margin: 0')); ?>
-            <?php echo CHtml::tag('button', array('name' => 'delete', 'type' => 'submit', 'style' => 'color:#f00', 'value' => $id, 'class' => 'btn btn-default btn-xs'), '&#10005;') ?>
+            <?php echo CHtml::tag('button', array('name' => 'delete', 'type' => 'submit', 'style' => 'color:#f00', 'value' => $id,
+                'class' => 'btn btn-xs', 'title' => 'Удалить'), '&#10005;') ?>
             <?php echo CHtml::endForm(); ?>
             <?php echo '</td></tr>';
         }
-        echo '</tbody><tfoot><tr class="info"><td>Итого</td><td>' . $sum_weight . '</td><td>' . $sum_proteins . '</td><td>' .
-            $sum_fats . '</td><td>' . $sum_carbohydrates . '</td><td>' . $sum_calories . '</td><td></td></tr></tfoot></table>';
+        echo '</tbody><tfoot><tr class="info"><td>Итого</td><td>' . $amounts['weight'] . '</td><td>' . $amounts['proteins'] . '</td><td>' .
+            $amounts['fats'] . '</td><td>' . $amounts['carbohydrates'] . '</td><td>' . $amounts['calories'] . '</td><td>' ?>
+
+        <?php if (!Yii::app()->user->isGuest) :
+            echo '<div style="display:none">';
+            $this->beginWidget('system.zii.widgets.jui.CJuiDialog',
+                array(
+                    'id' => 'saveDialog',
+                    'options' => array(
+                        'title' => Yii::t('product', 'Save'),
+                        'width' => '300px',
+                        'modal' => true,
+                        'buttons' => array(
+                            'Добавить' => 'js:function() {$("#Save").submit();}',
+                            'Отмена' => 'js:function() {$(this).dialog("close");}'),
+                        'autoOpen' => false,
+                    ))); ?>
+            <?php echo Yii::t('product', 'Enter product name:'); ?><br/><br/>
+
+            <form id="Save" name="save"
+                  action="<?php echo $this->createUrl('product/saveAsProduct'); ?>"
+                  method="post">
+                <input type="text" name="Save" style="width: 100%;" title="Название продукта">
+            </form>
+
+            <?php $this->endWidget();
+            echo '</div>';
+
+            echo CHtml::tag('button', array('name' => 'save', 'title' => 'Сохранить как продукт', 'style' => 'color:#fff', 'class' => 'btn btn-primary btn-xs',
+                'onclick' => '$("#saveDialog").dialog("open"); return false;', 'ontouchstart' => '$("#saveDialog").dialog("open"); return false;'), '&#10004;');
+        endif;
+
+        echo '</td></tr></tfoot></table>';
         ?>
         <?php if (!Yii::app()->user->isGuest) : ?>
             <?php echo TbHtml::linkButton('Сохранить в дневник', array('submit' => array('meal/save',
-                'proteins' => $sum_proteins, 'fats' => $sum_fats, 'carbohydrates' => $sum_carbohydrates, 'calories' => $sum_calories),
-                'name' => 'save', 'class' => 'btn btn-primary'))?>
+                'proteins' => $amounts['proteins'], 'fats' => $amounts['fats'], 'carbohydrates' => $amounts['carbohydrates'], 'calories' => $amounts['calories']),
+                'name' => 'save', 'class' => 'btn btn-primary', 'title' => 'Сохранить в дневник')) ?>
         <?php endif;
     }
     ?>

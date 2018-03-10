@@ -12,4 +12,8 @@ return array(
     'Fats' => 'Жиры',
     'Carbohydrates' => 'Углеводы',
     'Calories' => 'Калории',
+    'Save' => 'Сохранить',
+    'Enter product name:' => 'Введите название продукта:',
+    'Product Saved!' => 'Продукт сохранен!',
+    'Error! Product Is Not Saved!' => 'Ошибка! Продукт не сохранен!',
 );

@@ -33,7 +33,7 @@ class ProductController extends Controller
             ),
             */
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions'=>array('index','view','create','update','admin','delete'),
+                'actions'=>array('index','view','create','update','admin','delete','saveAsProduct'),
                 'users'=>array('@'),
             ),
             /*
@@ -80,6 +80,29 @@ class ProductController extends Controller
 			'model'=>$model,
 		));
 	}
+
+    public function actionSaveAsProduct()
+    {
+        $model = new Product;
+        $calculate = new Calculate();
+        $product = $calculate->amountsPer100;
+
+        if (isset($_POST['Save']) && !empty($product)) {
+            $model->proteins = $product['proteins'];
+            $model->fats = $product['fats'];
+            $model->carbohydrates = $product['carbohydrates'];
+            $model->calories = $product['calories'];
+            $model->name = $_POST['Save'];
+            if ($model->save()) {
+                Yii::app()->user->setFlash('success', Yii::t('product', 'Product Saved!'));
+                $this->redirect(array('site/index'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('product', 'Error! Product Is Not Saved!'));
+                $this->redirect(array('site/index'));
+            }
+        } else
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+    }
 
 	/**
 	 * Updates a particular model.

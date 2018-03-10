@@ -33,7 +33,7 @@ class SiteController extends Controller
         $list = $product->availableProducts;
 
         $calculate = new Calculate();
-        $this->render('index', array('list' => $list, 'calculate' => $calculate->getCalculate()));
+        $this->render('index', array('list' => $list, 'calculate' => $calculate->calculate, 'amounts' => $calculate->amounts));
     }
 
     public function actionAddToCalculate()

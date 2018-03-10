@@ -3,6 +3,12 @@
 /**
  * Класс Calculate предназначен для работы с сессией - хранилищем данных
  * текущего расчета калькулятора
+ *
+ * Custom
+ * @property array $calculate;
+ * @property array $idsOfAddedProducts;
+ * @property array $amounts;
+ * @property array $amountsPer100;
  */
 class Calculate extends CFormModel
 {
@@ -31,11 +37,6 @@ class Calculate extends CFormModel
     public function changeWeight($id, $weight)
     {
         if (isset($_SESSION['calculate'][$id])) {
-            $ratio = $weight / $_SESSION['calculate'][$id]['weight'];
-            $_SESSION['calculate'][$id]['proteins'] = round($_SESSION['calculate'][$id]['proteins'] * $ratio, 1);
-            $_SESSION['calculate'][$id]['fats'] = round($_SESSION['calculate'][$id]['fats'] * $ratio, 1);
-            $_SESSION['calculate'][$id]['carbohydrates'] = round($_SESSION['calculate'][$id]['carbohydrates'] * $ratio, 1);
-            $_SESSION['calculate'][$id]['calories'] = round($_SESSION['calculate'][$id]['calories'] * $ratio, 1);
             $_SESSION['calculate'][$id]['weight'] = $weight;
         }
     }
@@ -54,9 +55,24 @@ class Calculate extends CFormModel
      */
     public function getCalculate()
     {
-        return (isset($_SESSION['calculate']) && !empty($_SESSION['calculate'])) ? $_SESSION['calculate'] : array();
+        $calculate = array();
+        if (isset($_SESSION['calculate']) && !empty($_SESSION['calculate'])) {
+            foreach ($_SESSION['calculate'] as $id => $product) {
+                $ratio = $product['weight'] / 100;
+                $calculate[$id]['name'] = $product['name'];
+                $calculate[$id]['weight'] = $product['weight'];
+                $calculate[$id]['proteins'] = $product['proteins'] * $ratio;
+                $calculate[$id]['fats'] = $product['fats'] * $ratio;
+                $calculate[$id]['carbohydrates'] = $product['carbohydrates'] * $ratio;
+                $calculate[$id]['calories'] = $product['calories'] * $ratio;
+            }
+        }
+        return $calculate;
     }
 
+    /**
+     * Удаляет сессию
+     */
     public function deleteCalculate()
     {
         if (isset($_SESSION['calculate']))
@@ -75,5 +91,41 @@ class Calculate extends CFormModel
             }
         }
         return $ids;
+    }
+
+    /**
+     * @return array
+     * Вычисляет суммарные значения атрибутов выбранных продуктов
+     */
+    public function getAmounts()
+    {
+        $amounts = array();
+        if (isset($_SESSION['calculate'])) {
+            foreach ($this->calculate as $product) {
+                $amounts['weight'] += $product['weight'];
+                $amounts['proteins'] += $product['proteins'];
+                $amounts['fats'] += $product['fats'];
+                $amounts['carbohydrates'] += $product['carbohydrates'];
+                $amounts['calories'] += $product['calories'];
+            }
+        }
+        return $amounts;
+    }
+
+    /**
+     * @return array
+     * Пересчитывает суммарные значения атрибутов выбранных продуктов на 100 г
+     */
+    public function getAmountsPer100()
+    {
+        $product = array();
+        if (!empty($this->amounts)) {
+            $ratio = 100 / $this->amounts['weight'];
+            $product['proteins'] = round($this->amounts['proteins'] * $ratio, 1);
+            $product['fats'] = round($this->amounts['fats'] * $ratio, 1);
+            $product['carbohydrates'] = round($this->amounts['carbohydrates'] * $ratio, 1);
+            $product['calories'] = round($this->amounts['calories'] * $ratio, 0);
+        }
+        return $product;
     }
 }
