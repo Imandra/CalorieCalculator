@@ -3,6 +3,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/font-awesome/css/font-awesome.min.css"); ?>
     <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/style.css"); ?>
     <?php Yii::app()->bootstrap->register(); ?>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>

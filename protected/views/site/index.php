@@ -39,19 +39,19 @@ $this->pageTitle = Yii::app()->name;
             echo '<tr><td>' . $product['name'] . '</td><td>' ?>
 
             <?php echo CHtml::beginForm(array('site/changeProductWeight'), 'post', array('style' => 'margin: 0')); ?>
-            <span class="minus">&#9668;</span>
+            <span class="minus"><i class="fa fa-caret-left fa-lg" aria-hidden="true"></i></span>
             <input type="text" name="weight" class="input-mini" title="Вес продукта"
                    value="<?php echo $product['weight'] ?>" readonly
                    style="background-color: #fff; border: none; cursor: auto; box-shadow: none; text-align: center; width: 2em; padding: 0; margin: 0;">
             <input type="hidden" name="idp" value="<?php echo $id ?>">
-            <span class="plus">&#9658;</span>
+            <span class="plus"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></span>
             <?php echo CHtml::endForm(); ?>
 
             <?php echo '</td><td>' . $product['proteins'] . '</td><td>' . $product['fats'] . '</td><td>' .
                 $product['carbohydrates'] . '</td><td>' . $product['calories'] . '</td><td>'; ?>
             <?php echo CHtml::beginForm(array('site/deleteFromCalculate'), 'post', array('style' => 'margin: 0')); ?>
-            <?php echo CHtml::tag('button', array('name' => 'delete', 'type' => 'submit', 'style' => 'color:#f00', 'value' => $id,
-                'class' => 'btn btn-xs', 'title' => 'Удалить'), '&#10005;') ?>
+            <?php echo CHtml::tag('button', array('name' => 'delete', 'type' => 'submit', 'value' => $id,
+                'class' => 'btn btn-xs', 'title' => 'Удалить'), '<i class="fa fa-times" aria-hidden="true"></i>') ?>
             <?php echo CHtml::endForm(); ?>
             <?php echo '</td></tr>';
         }
@@ -83,8 +83,9 @@ $this->pageTitle = Yii::app()->name;
             <?php $this->endWidget();
             echo '</div>';
 
-            echo CHtml::tag('button', array('name' => 'save', 'title' => 'Сохранить как продукт', 'style' => 'color:#fff', 'class' => 'btn btn-primary btn-xs',
-                'onclick' => '$("#saveDialog").dialog("open"); return false;', 'ontouchstart' => '$("#saveDialog").dialog("open"); return false;'), '&#10004;');
+            echo CHtml::tag('button', array('name' => 'save', 'title' => 'Сохранить как продукт', 'class' => 'btn btn-primary btn-xs',
+                'onclick' => '$("#saveDialog").dialog("open"); return false;', 'ontouchstart' => '$("#saveDialog").dialog("open"); return false;'),
+                '<i class="fa fa-check" aria-hidden="true"></i>');
         endif;
 
         echo '</td></tr></tfoot></table>';
