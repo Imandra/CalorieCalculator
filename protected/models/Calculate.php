@@ -36,9 +36,8 @@ class Calculate extends CFormModel
      */
     public function changeWeight($id, $weight)
     {
-        if (isset($_SESSION['calculate'][$id])) {
+        if (isset($_SESSION['calculate'][$id]))
             $_SESSION['calculate'][$id]['weight'] = $weight;
-        }
     }
 
     /**
