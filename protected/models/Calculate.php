@@ -3,6 +3,7 @@
 /**
  * Класс Calculate предназначен для работы с сессией - хранилищем данных
  * текущего расчета калькулятора
+ * TODO: переписать класс, чтобы он не зависел от хранилища данных
  *
  * Custom
  * @property array $calculate;
@@ -13,12 +14,11 @@
 class Calculate extends CFormModel
 {
     /**
-     * @param integer $id
+     * @param $product
      */
-    public function addProduct($id)
+    public function addProduct($product)
     {
-        $product = Product::model()->findByPk($id);
-        if (isset($product)) {
+        if (!isset($_SESSION['calculate'][$product->id])) {
             $_SESSION['calculate'][$product->id] = array(
                 'name' => $product->name,
                 'proteins' => $product->proteins,
@@ -31,13 +31,18 @@ class Calculate extends CFormModel
     }
 
     /**
-     * @param integer $id
+     * @param $product
      * @param integer $weight
      */
-    public function changeWeight($id, $weight)
+    public function changeWeight($product, $weight)
     {
-        if (isset($_SESSION['calculate'][$id])) {
-            $_SESSION['calculate'][$id]['weight'] = $weight;
+        if (isset($_SESSION['calculate'][$product->id])) {
+            $ratio =  $weight/ 100;
+            $_SESSION['calculate'][$product->id]['proteins'] = $product->proteins * $ratio;
+            $_SESSION['calculate'][$product->id]['fats'] = $product->fats * $ratio;
+            $_SESSION['calculate'][$product->id]['carbohydrates'] = $product->carbohydrates * $ratio;
+            $_SESSION['calculate'][$product->id]['calories'] = $product->calories * $ratio;
+            $_SESSION['calculate'][$product->id]['weight'] = $weight;
         }
     }
 
@@ -55,21 +60,8 @@ class Calculate extends CFormModel
      */
     public function getCalculate()
     {
-        $calculate = array();
-        if (isset($_SESSION['calculate']) && !empty($_SESSION['calculate'])) {
-            foreach ($_SESSION['calculate'] as $id => $product) {
-                $ratio = $product['weight'] / 100;
-                $calculate[$id]['name'] = $product['name'];
-                $calculate[$id]['weight'] = $product['weight'];
-                $calculate[$id]['proteins'] = $product['proteins'] * $ratio;
-                $calculate[$id]['fats'] = $product['fats'] * $ratio;
-                $calculate[$id]['carbohydrates'] = $product['carbohydrates'] * $ratio;
-                $calculate[$id]['calories'] = $product['calories'] * $ratio;
-            }
-        }
-        return $calculate;
+        return (!empty($_SESSION['calculate'])) ? $_SESSION['calculate'] : array();
     }
-
     /**
      * Удаляет сессию
      */
@@ -106,7 +98,7 @@ class Calculate extends CFormModel
             $amounts['fats'] = 0;
             $amounts['carbohydrates'] = 0;
             $amounts['calories'] = 0;
-            foreach ($this->calculate as $product) {
+            foreach ($_SESSION['calculate'] as $product) {
                 $amounts['weight'] += $product['weight'];
                 $amounts['proteins'] += $product['proteins'];
                 $amounts['fats'] += $product['fats'];

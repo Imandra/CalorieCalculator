@@ -40,8 +40,9 @@ class SiteController extends Controller
     {
         if (isset($_POST['id'])) {
             $id = (int)$_POST['id'];
+            $product = Product::model()->findByPk($id);
             $calculate = new Calculate();
-            $calculate->addProduct($id);
+            $calculate->addProduct($product);
         }
         $this->redirect(array('index'));
     }
@@ -61,8 +62,9 @@ class SiteController extends Controller
         if (isset($_POST['idp']) && isset($_POST['weight'])) {
             $id = (int)$_POST['idp'];
             $weight = (int)$_POST['weight'];
+            $product = Product::model()->findByPk($id);
             $calculate = new Calculate();
-            $calculate->changeWeight($id, $weight);
+            $calculate->changeWeight($product, $weight);
         }
         $this->redirect(array('index'));
     }
