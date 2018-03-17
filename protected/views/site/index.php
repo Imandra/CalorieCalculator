@@ -103,8 +103,8 @@ $this->pageTitle = Yii::app()->name;
     $(document).ready(function () {
         $('.minus').click(function () {
             var $input = $(this).parent().find('input:text');
-            var count = parseInt($input.val()) - 10;
-            count = count < 1 ? 10 : count;
+            var count = parseInt($input.val()) - 5;
+            count = count < 1 ? 5 : count;
             $input.val(count);
             $input.change();
             $(this).closest('form').submit();
@@ -112,7 +112,7 @@ $this->pageTitle = Yii::app()->name;
         });
         $('.plus').click(function () {
             var $input = $(this).parent().find('input:text');
-            var count = parseInt($input.val()) + 10;
+            var count = parseInt($input.val()) + 5;
             count = count > 2000 ? 2000 : count;
             $input.val(count);
             $input.change();
