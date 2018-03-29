@@ -9,8 +9,11 @@
  * @property string $password
  * @property string $email
  *
+ * The followings are the available model relations:
+ * @property DailyReport $dailyReport
+ *
  * Custom
- * @property array $diaryOptions
+ * @property array $dailyReportOptions
  */
 class User extends CActiveRecord
 {

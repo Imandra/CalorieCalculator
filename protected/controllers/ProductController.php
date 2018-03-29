@@ -83,16 +83,15 @@ class ProductController extends Controller
 
     public function actionSaveAsProduct()
     {
-        $model = new Product;
-        $calculate = new Calculate();
-        $product = $calculate->amountsPer100;
+        $model = new Product();
 
-        if (isset($_POST['Save']) && !empty($product)) {
-            $model->proteins = $product['proteins'];
-            $model->fats = $product['fats'];
-            $model->carbohydrates = $product['carbohydrates'];
-            $model->calories = $product['calories'];
+        if (isset($_POST['Save'])) {
             $model->name = $_POST['Save'];
+            $model->proteins = Yii::app()->calculator->totalProteinsPer100;
+            $model->fats = Yii::app()->calculator->totalFatsPer100;
+            $model->carbohydrates = Yii::app()->calculator->totalCarbohydratesPer100;
+            $model->calories = Yii::app()->calculator->totalCaloriesPer100;
+
             if ($model->save()) {
                 Yii::app()->user->setFlash('success', Yii::t('product', 'Product Saved!'));
                 $this->redirect(array('site/index'));

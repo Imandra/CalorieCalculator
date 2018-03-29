@@ -198,8 +198,7 @@ class MealController extends Controller
             $meal->carbohydrates = $carbohydrates;
             $meal->calories = $calories;
             if ($meal->save()) {
-                $calculate = new Calculate();
-                $calculate->deleteCalculate();
+                Yii::app()->calculator->clear();
                 Yii::app()->user->setFlash('success', Yii::t('default', 'Data Saved!'));
                 $this->redirect(array('site/index'));
             }

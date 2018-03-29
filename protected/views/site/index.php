@@ -22,7 +22,7 @@ $this->pageTitle = Yii::app()->name;
     <h1><?php echo Yii::app()->name ?></h1>
 
 
-    <?php echo CHtml::beginForm(array('site/addToCalculate'), 'post'); ?>
+    <?php echo CHtml::beginForm(array('site/addToCalculator'), 'post'); ?>
     <?php echo TbHtml::label('Выберите продукт:', 'id'); ?>
     <?php echo TbHtml::dropDownList('id', '', $list, array('empty' => '', 'onchange' => 'this.form.submit()')); ?>
     <?php echo CHtml::endForm(); ?>
@@ -31,32 +31,32 @@ $this->pageTitle = Yii::app()->name;
 
 <div>
     <?php
-    if (!empty($calculate) && !empty($amounts)) {
+    if (!empty($positions)) {
         echo '<table class="table table-bordered"><thead><tr><th width="20%">Наименование продукта</th><th width="15%">Вес&nbsp;продукта, г</th>
             <th width="15%">Белки, г</th><th width="15%">Жиры, г</th><th width="15%">Углеводы, г</th>
             <th width="15%">Калории, Ккал</th><th width="5%"></th></tr></thead><tbody>';
-        foreach ($calculate as $id => $product) {
-            echo '<tr><td>' . $product['name'] . '</td><td>' ?>
+        foreach ($positions as $position) {
+            echo '<tr><td>' . $position->calcName . '</td><td>' ?>
 
             <?php echo CHtml::beginForm(array('site/changeProductWeight'), 'post', array('style' => 'margin: 0')); ?>
             <span class="minus"><i class="fa fa-caret-left fa-lg" aria-hidden="true"></i></span>
             <input type="text" name="weight" class="input-mini" title="Вес продукта"
-                   value="<?php echo $product['weight'] ?>" readonly
+                   value="<?php echo $position->weight ?>" readonly
                    style="background-color: #fff; border: none; cursor: auto; box-shadow: none; text-align: center; width: 2em; padding: 0; margin: 0;">
-            <input type="hidden" name="idp" value="<?php echo $id ?>">
+            <input type="hidden" name="idp" value="<?php echo $position->id ?>">
             <span class="plus"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></span>
             <?php echo CHtml::endForm(); ?>
 
-            <?php echo '</td><td>' . $product['proteins'] . '</td><td>' . $product['fats'] . '</td><td>' .
-                $product['carbohydrates'] . '</td><td>' . $product['calories'] . '</td><td>'; ?>
-            <?php echo CHtml::beginForm(array('site/deleteFromCalculate'), 'post', array('style' => 'margin: 0')); ?>
-            <?php echo CHtml::tag('button', array('name' => 'delete', 'type' => 'submit', 'value' => $id,
+            <?php echo '</td><td>' . $position->calcProteins . '</td><td>' . $position->calcFats . '</td><td>' .
+                $position->calcCarbohydrates . '</td><td>' . $position->calcCalories . '</td><td>'; ?>
+            <?php echo CHtml::beginForm(array('site/removeFromCalculator'), 'post', array('style' => 'margin: 0')); ?>
+            <?php echo CHtml::tag('button', array('name' => 'delete', 'type' => 'submit', 'value' => $position->id,
                 'class' => 'btn btn-xs', 'title' => 'Удалить'), '<i class="fa fa-times" aria-hidden="true"></i>') ?>
             <?php echo CHtml::endForm(); ?>
             <?php echo '</td></tr>';
         }
-        echo '</tbody><tfoot><tr class="info"><td>Итого</td><td>' . $amounts['weight'] . '</td><td>' . $amounts['proteins'] . '</td><td>' .
-            $amounts['fats'] . '</td><td>' . $amounts['carbohydrates'] . '</td><td>' . $amounts['calories'] . '</td><td>' ?>
+        echo '</tbody><tfoot><tr class="info"><td>Итого</td><td>' . Yii::app()->calculator->totalWeight . '</td><td>' . Yii::app()->calculator->totalProteins . '</td><td>' .
+            Yii::app()->calculator->totalFats . '</td><td>' . Yii::app()->calculator->totalCarbohydrates . '</td><td>' . Yii::app()->calculator->totalCalories . '</td><td>' ?>
 
         <?php if (!Yii::app()->user->isGuest) :
             echo '<div style="display:none">';
@@ -92,7 +92,8 @@ $this->pageTitle = Yii::app()->name;
         ?>
         <?php if (!Yii::app()->user->isGuest) : ?>
             <?php echo TbHtml::linkButton('Сохранить в дневник', array('submit' => array('meal/save',
-                'proteins' => $amounts['proteins'], 'fats' => $amounts['fats'], 'carbohydrates' => $amounts['carbohydrates'], 'calories' => $amounts['calories']),
+                'proteins' => Yii::app()->calculator->totalProteins, 'fats' => Yii::app()->calculator->totalFats,
+                'carbohydrates' => Yii::app()->calculator->totalCarbohydrates, 'calories' => Yii::app()->calculator->totalCalories),
                 'name' => 'save', 'class' => 'btn btn-primary', 'title' => 'Сохранить в дневник')) ?>
         <?php endif;
     }
