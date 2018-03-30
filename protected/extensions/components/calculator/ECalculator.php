@@ -43,15 +43,16 @@ class ECalculator extends CMap
 
     /**
      * Add item to the calculator
-     * If the position was previously added to the calculator,
-     * then information about it is updated
+     * only if position was not previously in the calculator
      * @param IECalculatorPosition $position
      * @param integer $weight
      * @throws CException
      */
     public function addItem(IECalculatorPosition $position, $weight = 100)
     {
-        $this->update($position, $weight);
+        $key = $position->getId();
+        if (!$this->itemAt($key) instanceof IECalculatorPosition)
+            $this->update($position, $weight);
     }
 
     /**
