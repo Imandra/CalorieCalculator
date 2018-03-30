@@ -30,7 +30,7 @@ class SiteController extends Controller
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
         $product = new Product();
-        $list = $product->availableProducts;
+        $list = $product->productOptions;
         $positions = Yii::app()->calculator->getPositions();
         $this->render('index', array('list' => $list, 'positions' => $positions));
     }

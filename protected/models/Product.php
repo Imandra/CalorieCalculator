@@ -12,7 +12,7 @@
  * @property integer $calories
  *
  * Custom
- * @property array $availableProducts
+ * @property array $productOptions
  */
 class Product extends CActiveRecord implements IECalculatorPosition
 {
@@ -170,12 +170,13 @@ class Product extends CActiveRecord implements IECalculatorPosition
      * @return array
      * возвращает массив доступных для выбора продуктов
      */
-    public function getAvailableProducts()
+    public function getProductOptions()
     {
         $criteria = new CDbCriteria;
         // сортируем по названию продукта
         $criteria->order = 'name';
         // исключаем уже выбранные продукты
+        // поскольку модель IECalculatorPosition одна, id позиций в калькуляторе всегда равны id продуктов
         $criteria->addNotInCondition('id', Yii::app()->calculator->keys);
 
         $products = self::model()->findAll($criteria);
