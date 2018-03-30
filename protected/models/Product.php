@@ -25,6 +25,16 @@ class Product extends CActiveRecord implements IECalculatorPosition
     }
 
     /**
+     * Translates the first letter of the attribute $name to uppercase
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        $this->name = ProductHelper::str_mb_ucfirst($this->name);
+        return parent::beforeValidate();
+    }
+
+    /**
      * @return integer
      */
     public function getId()
