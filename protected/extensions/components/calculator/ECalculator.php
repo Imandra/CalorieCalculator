@@ -51,7 +51,7 @@ class ECalculator extends CMap
     public function addItem(IECalculatorPosition $position, $weight = 100)
     {
         $key = $position->getId();
-        if (!$this->itemAt($key) instanceof IECalculatorPosition)
+        if (is_null($this->itemAt($key)))
             $this->update($position, $weight);
     }
 
