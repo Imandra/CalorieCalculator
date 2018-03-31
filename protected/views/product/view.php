@@ -7,7 +7,7 @@ $this->pageTitle=Yii::app()->name . ' - ' . $model->name;
 
 <?php
 $this->breadcrumbs=array(
-    Yii::t('product','Products')=>array('index'),
+    //Yii::t('product','Products')=>array('index'),
 	$model->name,
 );
 
@@ -16,7 +16,7 @@ $this->menu=array(
     array('label'=>Yii::t('product','Delete Product'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),
         'confirm'=>Yii::t('default','Are you sure you want to delete this item?'))),
 	array('label'=>Yii::t('product','Create Product'), 'url'=>array('create')),
-    array('label'=>Yii::t('product','List Product'), 'url'=>array('index')),
+    //array('label'=>Yii::t('product','List Product'), 'url'=>array('index')),
 	array('label'=>Yii::t('product','Manage Product'), 'url'=>array('admin')),
 );
 ?>
@@ -29,7 +29,7 @@ $this->menu=array(
     ),
     'data'=>$model,
     'attributes'=>array(
-		'id',
+		//'id',
 		'name',
 		'proteins',
 		'fats',

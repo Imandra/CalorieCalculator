@@ -5,13 +5,13 @@
 $this->pageTitle=Yii::app()->name . ' - ' . Yii::t('product','Manage Product');
 
 $this->breadcrumbs=array(
-    Yii::t('product','Products')=>array('index'),
+    //Yii::t('product','Products')=>array('index'),
     Yii::t('default','Manage'),
 );
 
 $this->menu=array(
 	array('label'=>Yii::t('product','Create Product'), 'url'=>array('create')),
-    array('label'=>Yii::t('product','List Product'), 'url'=>array('index')),
+    //array('label'=>Yii::t('product','List Product'), 'url'=>array('index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -50,7 +50,7 @@ $('.search-form form').submit(function(){
     'pager' => array('class' => 'bootstrap.widgets.TbPager',
         'maxButtonCount' => 5),
     'columns' => array(
-        'id',
+        //'id',
         'name',
         'proteins',
         'fats',

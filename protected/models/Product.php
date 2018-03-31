@@ -152,6 +152,10 @@ class Product extends CActiveRecord implements IECalculatorPosition
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 10),
+            'sort' => array(
+                'defaultOrder' => 'name ASC'
+            )
         ));
     }
 

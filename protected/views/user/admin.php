@@ -5,13 +5,13 @@
 $this->pageTitle=Yii::app()->name . ' - ' . Yii::t('user','Manage User');
 
 $this->breadcrumbs=array(
-    Yii::t('user','Users')=>array('index'),
+    //Yii::t('user','Users')=>array('index'),
     Yii::t('default','Manage'),
 );
 
 $this->menu=array(
     array('label'=>Yii::t('user','Create User'), 'url'=>array('create')),
-    array('label'=>Yii::t('user','List User'), 'url'=>array('index')),
+    //array('label'=>Yii::t('user','List User'), 'url'=>array('index')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

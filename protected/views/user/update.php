@@ -7,14 +7,14 @@ $this->pageTitle=Yii::app()->name . ' - ' . Yii::t('default','Update') . ' ' . $
 
 <?php
 $this->breadcrumbs=array(
-    Yii::t('user','Users')=>array('index'),
+    //Yii::t('user','Users')=>array('index'),
     $model->username=>array('view','id'=>$model->id),
     Yii::t('default','Update'),
 );
 
 $this->menu=array(
     array('label'=>$model->username, 'url'=>array('view', 'id'=>$model->id)),
-    array('label'=>Yii::t('user','List User'), 'url'=>array('index')),
+    //array('label'=>Yii::t('user','List User'), 'url'=>array('index')),
     array('label'=>Yii::t('user','Create User'), 'url'=>array('create')),
     array('label'=>Yii::t('user','Manage User'), 'url'=>array('admin')),
 );
