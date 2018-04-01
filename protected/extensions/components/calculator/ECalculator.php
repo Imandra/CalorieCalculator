@@ -255,15 +255,15 @@ class ECalculator extends CMap
     }
 
     /**
-     * @param mixed $className
+     * @param mixed $modelName
      * @return array
      */
-    public function getCalculatorOptions($className)
+    public function getCalculatorOptions($modelName)
     {
         $ids = array();
         $positions = $this->getPositions();
         foreach ($positions as $position){
-            if($position instanceof $className)
+            if($position instanceof $modelName)
                 $ids[] = $position->id;
         }
         return $ids;
