@@ -22,7 +22,8 @@ $this->pageTitle = Yii::app()->name;
     <h1><?php echo Yii::app()->name ?></h1>
 
 
-    <?php echo CHtml::beginForm(array('site/addToCalculator'), 'post'); ?>
+    <?php echo CHtml::beginForm(array('site/addPosition'), 'post'); ?>
+    <?php echo TbHtml::hiddenField('type', 'Product'); ?>
     <?php echo TbHtml::label('Выберите продукт:', 'id'); ?>
     <?php echo TbHtml::dropDownList('id', '', $list, array('empty' => '', 'onchange' => 'this.form.submit()')); ?>
     <?php echo CHtml::endForm(); ?>
@@ -38,19 +39,19 @@ $this->pageTitle = Yii::app()->name;
         foreach ($positions as $position) {
             echo '<tr><td>' . $position->calcName . '</td><td>' ?>
 
-            <?php echo CHtml::beginForm(array('site/changeProductWeight'), 'post', array('style' => 'margin: 0')); ?>
+            <?php echo CHtml::beginForm(array('site/changePositionWeight'), 'post', array('style' => 'margin: 0')); ?>
             <span class="minus"><i class="fa fa-caret-left fa-lg" aria-hidden="true"></i></span>
             <input type="text" name="weight" class="input-mini" title="Вес продукта"
                    value="<?php echo $position->weight ?>" readonly
                    style="background-color: #fff; border: none; cursor: auto; box-shadow: none; text-align: center; width: 2em; padding: 0; margin: 0;">
-            <input type="hidden" name="idp" value="<?php echo $position->id ?>">
+            <input type="hidden" name="key" value="<?php echo $position->getId() ?>">
             <span class="plus"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></span>
             <?php echo CHtml::endForm(); ?>
 
             <?php echo '</td><td>' . $position->calcProteins . '</td><td>' . $position->calcFats . '</td><td>' .
                 $position->calcCarbohydrates . '</td><td>' . $position->calcCalories . '</td><td>'; ?>
-            <?php echo CHtml::beginForm(array('site/removeFromCalculator'), 'post', array('style' => 'margin: 0')); ?>
-            <?php echo CHtml::tag('button', array('name' => 'delete', 'type' => 'submit', 'value' => $position->id,
+            <?php echo CHtml::beginForm(array('site/removePosition'), 'post', array('style' => 'margin: 0')); ?>
+            <?php echo CHtml::tag('button', array('name' => 'del-key', 'type' => 'submit', 'value' => $position->getId(),
                 'class' => 'btn btn-xs', 'title' => 'Удалить'), '<i class="fa fa-times" aria-hidden="true"></i>') ?>
             <?php echo CHtml::endForm(); ?>
             <?php echo '</td></tr>';

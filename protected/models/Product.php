@@ -30,7 +30,7 @@ class Product extends CActiveRecord implements IECalculatorPosition
      */
     public function beforeValidate()
     {
-        $this->name = ProductHelper::str_mb_ucfirst($this->name);
+        $this->name = PositionHelper::str_mb_ucfirst($this->name);
         return parent::beforeValidate();
     }
 
@@ -39,7 +39,7 @@ class Product extends CActiveRecord implements IECalculatorPosition
      */
     public function getId()
     {
-        return $this->id;
+        return 'Product' . $this->id;
     }
 
     /**
@@ -180,12 +180,11 @@ class Product extends CActiveRecord implements IECalculatorPosition
         // сортируем по названию продукта
         $criteria->order = 'name';
         // исключаем уже выбранные продукты
-        // поскольку модель IECalculatorPosition одна, id позиций в калькуляторе всегда равны id продуктов
-        $criteria->addNotInCondition('id', Yii::app()->calculator->keys);
+        $selected = Yii::app()->calculator->getCalculatorOptions(__CLASS__);
+        $criteria->addNotInCondition('id', $selected);
 
         $products = self::model()->findAll($criteria);
         // при помощи listData создаем массив вида $ключ=>$значение
         return CHtml::listData($products, 'id', 'name');
-
     }
 }

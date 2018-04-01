@@ -1,6 +1,6 @@
 <?php
 
-class ProductHelper
+class PositionHelper
 {
     /**
      * Реализует функционал ucfirst для мультибайтовой кодировки

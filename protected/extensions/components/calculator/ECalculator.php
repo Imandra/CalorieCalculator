@@ -253,4 +253,19 @@ class ECalculator extends CMap
     {
         return !(bool)$this->getCount();
     }
+
+    /**
+     * @param mixed $className
+     * @return array
+     */
+    public function getCalculatorOptions($className)
+    {
+        $ids = array();
+        $positions = $this->getPositions();
+        foreach ($positions as $position){
+            if($position instanceof $className)
+                $ids[] = $position->id;
+        }
+        return $ids;
+    }
 }

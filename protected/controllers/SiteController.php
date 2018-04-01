@@ -35,32 +35,33 @@ class SiteController extends Controller
         $this->render('index', array('list' => $list, 'positions' => $positions));
     }
 
-    public function actionAddToCalculator()
+    public function actionAddPosition()
     {
-        if (isset($_POST['id'])) {
-            $id = (int)$_POST['id'];
-            $product = Product::model()->findByPk($id);
-            Yii::app()->calculator->addItem($product);
+        if (isset($_POST['id']) && isset($_POST['type'])) {
+            $id = $_POST['id'];
+            $className = $_POST['type'];
+            $position = $className::model()->findByPk($id);
+            Yii::app()->calculator->addItem($position);
         }
         $this->redirect(array('index'));
     }
 
-    public function actionRemoveFromCalculator()
+    public function actionRemovePosition()
     {
-        if (isset($_POST['delete'])) {
-            $id = (int)$_POST['delete'];
-            Yii::app()->calculator->remove($id);
+        if (isset($_POST['del-key'])) {
+            $key = $_POST['del-key'];
+            Yii::app()->calculator->remove($key);
         }
         $this->redirect(array('index'));
     }
 
-    public function actionChangeProductWeight()
+    public function actionChangePositionWeight()
     {
-        if (isset($_POST['idp']) && isset($_POST['weight'])) {
-            $id = (int)$_POST['idp'];
-            $weight = (int)$_POST['weight'];
-            $product = Product::model()->findByPk($id);
-            Yii::app()->calculator->update($product, $weight);
+        if (isset($_POST['key']) && isset($_POST['weight'])) {
+            $key = $_POST['key'];
+            $weight = $_POST['weight'];
+            $position = Yii::app()->calculator->itemAt($key);
+            Yii::app()->calculator->update($position, $weight);
         }
         $this->redirect(array('index'));
     }
@@ -77,34 +78,6 @@ class SiteController extends Controller
                 $this->render('error', $error);
         }
     }
-
-    /**
-     * Displays the contact page
-     */
-    /*
-    public function actionContact()
-    {
-        $model=new ContactForm;
-        if(isset($_POST['ContactForm']))
-        {
-            $model->attributes=$_POST['ContactForm'];
-            if($model->validate())
-            {
-                $name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-                $subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-                $headers="From: $name <{$model->email}>\r\n".
-                    "Reply-To: {$model->email}\r\n".
-                    "MIME-Version: 1.0\r\n".
-                    "Content-Type: text/plain; charset=UTF-8";
-
-                mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-                Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-                $this->refresh();
-            }
-        }
-        $this->render('contact',array('model'=>$model));
-    }
-    */
 
     /**
      * Displays the login page
