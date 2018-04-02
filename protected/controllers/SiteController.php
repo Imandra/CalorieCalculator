@@ -42,7 +42,8 @@ class SiteController extends Controller
             $modelName = $_POST['type'];
             if (PositionHelper::is_model($modelName)) {
                 $position = $modelName::model()->findByPk($id);
-                Yii::app()->calculator->addItem($position);
+                if(!empty($position))
+                    Yii::app()->calculator->addItem($position);
             }
         }
         $this->redirect(array('index'));

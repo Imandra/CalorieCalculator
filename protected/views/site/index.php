@@ -43,7 +43,7 @@ $this->pageTitle = Yii::app()->name;
             <span class="minus"><i class="fa fa-caret-left fa-lg" aria-hidden="true"></i></span>
             <input type="text" name="weight" class="input-mini" title="Вес продукта"
                    value="<?php echo $position->weight ?>" readonly
-                   style="background-color: #fff; border: none; cursor: auto; box-shadow: none; text-align: center; width: 2em; padding: 0; margin: 0;">
+                   style="background-color: #fff; border: none; cursor: auto; box-shadow: none; text-align: center; width: 2.2em; padding: 0; margin: 0;">
             <input type="hidden" name="key" value="<?php echo $position->getId() ?>">
             <span class="plus"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></span>
             <?php echo CHtml::endForm(); ?>
