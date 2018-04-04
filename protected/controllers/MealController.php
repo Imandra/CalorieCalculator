@@ -180,23 +180,19 @@ class MealController extends Controller
     }
 
     /**
-     * @param $proteins
-     * @param $fats
-     * @param $carbohydrates
-     * @param $calories
      * @throws CHttpException
      */
-    public function actionSave($proteins, $fats, $carbohydrates, $calories)
+    public function actionSave()
     {
         if (Yii::app()->request->isPostRequest)
         {
             $meal = new Meal();
             $meal->user_id = Yii::app()->user->id;
             $meal->datetime = date('Y-m-d H:i:s');
-            $meal->proteins = $proteins;
-            $meal->fats = $fats;
-            $meal->carbohydrates = $carbohydrates;
-            $meal->calories = $calories;
+            $meal->proteins = Yii::app()->calculator->totalProteins;
+            $meal->fats = Yii::app()->calculator->totalFats;
+            $meal->carbohydrates = Yii::app()->calculator->totalCarbohydrates;
+            $meal->calories = Yii::app()->calculator->totalCalories;
             if ($meal->save()) {
                 Yii::app()->calculator->clear();
                 Yii::app()->user->setFlash('success', Yii::t('default', 'Data Saved!'));

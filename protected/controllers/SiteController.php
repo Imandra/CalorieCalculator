@@ -66,7 +66,21 @@ class SiteController extends Controller
             $position = Yii::app()->calculator->itemAt($key);
             Yii::app()->calculator->update($position, $weight);
         }
-        $this->redirect(array('index'));
+
+        if (Yii::app()->request->isAjaxRequest) {
+            Yii::app()->clientScript->scriptMap = array(
+                // В карте отключаем загрузку core-скриптов, УЖЕ подключенных до ajax загрузки
+                'jquery.js' => false,
+                'jquery.min.js' => false,
+                'jquery-ui.min.js' => false,
+                'jquery-ui.css' => false,
+                'custom.css' => false
+            );
+            $positions = Yii::app()->calculator->getPositions();
+            $this->renderPartial('_calculator', array('positions' => $positions), false, true);
+            Yii::app()->end();
+        } else
+            $this->redirect(array('index'));
     }
 
     /**
