@@ -6,14 +6,13 @@ if (!empty($positions)) {
     foreach ($positions as $position) {
         echo '<tr><td>' . $position->calcName . '</td><td>' ?>
 
-        <?php echo CHtml::beginForm('', '', array('style' => 'margin: 0')); ?>
-        <span class="minus"><i class="fa fa-caret-left fa-lg" aria-hidden="true"></i></span>
-        <input type="text" name="weight" class="input-mini" title="Вес продукта"
-               value="<?php echo $position->weight ?>" readonly
-               style="background-color: #fff; border: none; cursor: auto; box-shadow: none; text-align: center; width: 2.2em; padding: 0; margin: 0;">
-        <input type="hidden" name="key" value="<?php echo $position->getId() ?>">
-        <span class="plus"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></span>
-        <?php echo CHtml::endForm(); ?>
+        <form method="post" style="margin: 0;">
+            <span class="minus"><i class="fa fa-caret-left fa-lg" aria-hidden="true"></i></span>
+            <span class="display"><?php echo $position->weight ?></span>
+            <input type="hidden" name="weight" class="weight" value="<?php echo $position->weight ?>">
+            <input type="hidden" name="key" value="<?php echo $position->getId() ?>">
+            <span class="plus"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></span>
+        </form>
 
         <?php echo '</td><td>' . $position->calcProteins . '</td><td>' . $position->calcFats . '</td><td>' .
             $position->calcCarbohydrates . '</td><td>' . $position->calcCalories . '</td><td>'; ?>
@@ -62,7 +61,7 @@ if (!empty($positions)) {
 <script>
     $(document).ready(function () {
         $('.minus').click(function () {
-            var $input = $(this).parent().find('input:text');
+            var $input = $(this).parent().find('.weight');
             var count = parseInt($input.val()) - 5;
             count = count < 1 ? 5 : count;
             $input.val(count);
@@ -82,7 +81,7 @@ if (!empty($positions)) {
         });
 
         $('.plus').click(function () {
-            var $input = $(this).parent().find('input:text');
+            var $input = $(this).parent().find('.weight');
             var count = parseInt($input.val()) + 5;
             count = count > 2000 ? 2000 : count;
             $input.val(count);

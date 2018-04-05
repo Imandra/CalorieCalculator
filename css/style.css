@@ -18,6 +18,12 @@ tfoot {
     color: #298dcd;
 }
 
+.display {
+    display: inline-block;
+    width: 2.3em;
+    text-align: center
+}
+
 .about {
     text-indent: 15px;
 }
