@@ -62,9 +62,9 @@ if (!empty($positions)) {
     $(document).ready(function () {
         $('.minus').click(function () {
             var $input = $(this).parent().find('.weight');
-            var count = parseInt($input.val()) - 5;
-            count = count < 1 ? 5 : count;
-            $input.val(count);
+            var weight = parseInt($input.val()) - 5;
+            weight = weight < 5 ? 5 : weight;
+            $input.val(weight);
             $input.change();
             var form = $(this).parents('form');
             var formData = form.serialize();
@@ -82,9 +82,9 @@ if (!empty($positions)) {
 
         $('.plus').click(function () {
             var $input = $(this).parent().find('.weight');
-            var count = parseInt($input.val()) + 5;
-            count = count > 2000 ? 2000 : count;
-            $input.val(count);
+            var weight = parseInt($input.val()) + 5;
+            weight = weight > 2000 ? 2000 : weight;
+            $input.val(weight);
             $input.change();
             var form = $(this).parents('form');
             var formData = form.serialize();
