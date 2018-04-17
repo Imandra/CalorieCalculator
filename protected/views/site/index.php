@@ -4,6 +4,8 @@ $this->pageTitle = Yii::app()->name;
 ?>
 
 <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/custom.css"); ?>
+<?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/chosen.min.css"); ?>
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl . "/js/chosen.jquery.min.js"); ?>
 
 <div>
 
@@ -25,7 +27,16 @@ $this->pageTitle = Yii::app()->name;
     <?php echo CHtml::beginForm(array('site/addPosition'), 'post'); ?>
     <?php echo TbHtml::hiddenField('type', 'Product'); ?>
     <?php echo TbHtml::label('Выберите продукт:', 'id'); ?>
-    <?php echo TbHtml::dropDownList('id', '', $list, array('empty' => '', 'onchange' => 'this.form.submit()')); ?>
+    <?php echo TbHtml::dropDownList('id', '', $list,
+        array('empty' => '', 'onchange' => 'this.form.submit()', 'class' => 'chosen-select', 'data-placeholder' => ' ')); ?>
+
+    <script>
+        $(".chosen-select").chosen({
+            no_results_text: "Ничего не найдено: ",
+            width: "230px"
+        });
+    </script>
+
     <?php echo CHtml::endForm(); ?>
 
 </div>
