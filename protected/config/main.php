@@ -57,9 +57,6 @@ return array(
         'calculator' => array(
             'class' => 'ext.components.calculator.ECalculator',
         ),
-        'chosen' => array(
-            'class' => 'ext.chosen.Chosen'
-        ),
         // uncomment the following to enable URLs in path-format
         'urlManager' => array(
             'urlFormat' => 'path',

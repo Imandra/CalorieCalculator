@@ -21,7 +21,6 @@ $this->pageTitle = Yii::app()->name;
 
     <h1><?php echo Yii::app()->name ?></h1>
 
-
     <?php echo CHtml::beginForm(array('site/addPosition'), 'post'); ?>
     <?php echo TbHtml::hiddenField('type', 'Product'); ?>
     <?php echo TbHtml::label('Выберите продукт:', 'id'); ?>
