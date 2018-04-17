@@ -26,7 +26,8 @@ return array(
         'bootstrap.helpers.TbArray',
         'bootstrap.behaviors.TbWidget',
         'bootstrap.widgets.*',
-        'ext.components.calculator.*'
+        'ext.components.calculator.*',
+        'ext.chosen.*'
     ),
 
     'modules' => array(
@@ -55,6 +56,9 @@ return array(
         ),
         'calculator' => array(
             'class' => 'ext.components.calculator.ECalculator',
+        ),
+        'chosen' => array(
+            'class' => 'ext.chosen.Chosen'
         ),
         // uncomment the following to enable URLs in path-format
         'urlManager' => array(
