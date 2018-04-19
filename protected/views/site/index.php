@@ -5,39 +5,45 @@ $this->pageTitle = Yii::app()->name;
 
 <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/custom.css"); ?>
 
-<div>
+<?php if (Yii::app()->user->hasFlash('success')): ?>
+    <div class="flash-success">
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?>
 
-    <?php if (Yii::app()->user->hasFlash('success')): ?>
-        <div class="flash-success">
-            <?php echo Yii::app()->user->getFlash('success'); ?>
-        </div>
-    <?php endif; ?>
+<?php if (Yii::app()->user->hasFlash('error')): ?>
+    <div class="flash-error">
+        <?php echo Yii::app()->user->getFlash('error'); ?>
+    </div>
+<?php endif; ?>
 
-    <?php if (Yii::app()->user->hasFlash('error')): ?>
-        <div class="flash-error">
-            <?php echo Yii::app()->user->getFlash('error'); ?>
-        </div>
-    <?php endif; ?>
+<h1><?php echo Yii::app()->name ?></h1>
 
-    <h1><?php echo Yii::app()->name ?></h1>
+<?php if (!Yii::app()->user->isGuest) : ?>
+    <?php $this->beginWidget('system.zii.widgets.jui.CJuiDialog',
+        array(
+            'id' => 'saveDialog',
+            'options' => array(
+                'title' => Yii::t('product', 'Save'),
+                'width' => '300px',
+                'modal' => true,
+                'buttons' => array(
+                    'Добавить' => 'js:function() {$("#Save").submit();}',
+                    'Отмена' => 'js:function() {$(this).dialog("close");}'),
+                'autoOpen' => false,
+            ))); ?>
 
-    <?php echo CHtml::beginForm(array('site/addPosition'), 'post'); ?>
-    <?php echo TbHtml::hiddenField('type', 'Product'); ?>
-    <?php echo TbHtml::label('Выберите продукт:', 'id'); ?>
-    <?php echo Chosen::dropDownList('id', '', $list,
-        array('empty' => '', 'onchange' => 'this.form.submit()', 'class' => 'chosen-select', 'data-placeholder' => ' ',
-            'style' => 'width:230px')); ?>
-    <?php echo CHtml::endForm(); ?>
+    <?php echo Yii::t('product', 'Enter product name:'); ?><br/><br/>
 
-</div>
+    <form id="Save" name="save"
+          action="<?php echo $this->createUrl('product/saveAsProduct'); ?>"
+          method="post">
+        <input type="text" name="Save" style="width: 100%;" title="Название продукта">
+    </form>
+
+    <?php $this->endWidget(); ?>
+<?php endif; ?>
 
 <div id="calculator">
-    <?php $this->renderPartial('_calculator', array('positions' => $positions), false, true); ?>
+    <?php $this->renderPartial('_calculator', array('list' => $list, 'positions' => $positions), false, true); ?>
 </div>
-
-<?php if (!Yii::app()->user->isGuest && !empty($positions)) : ?>
-    <?php echo CHtml::beginForm(array('meal/save'), 'post'); ?>
-    <?php echo CHtml::tag('button', array('name' => 'save', 'type' => 'submit', 'class' => 'btn btn-primary',
-        'title' => 'Сохранить в дневник'), 'Сохранить в дневник') ?>
-    <?php echo CHtml::endForm(); ?>
-<?php endif; ?>

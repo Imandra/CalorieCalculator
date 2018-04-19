@@ -42,8 +42,25 @@ class SiteController extends Controller
             $modelName = $_POST['type'];
             if (PositionHelper::is_model($modelName)) {
                 $position = $modelName::model()->findByPk($id);
-                if(!empty($position))
+                if (!empty($position))
                     Yii::app()->calculator->addItem($position);
+            }
+            if (Yii::app()->request->isAjaxRequest) {
+                Yii::app()->clientScript->scriptMap = array(
+                    // В карте отключаем загрузку core-скриптов, УЖЕ подключенных до ajax загрузки
+                    'jquery.js' => false,
+                    'jquery.min.js' => false,
+                    'jquery-ui.min.js' => false,
+                    'jquery-ui.css' => false,
+                    'custom.css' => false,
+                    'chosen.jquery.js' => false,
+                    'chosen.css' => false
+                );
+                $positions = Yii::app()->calculator->getPositions();
+                $product = new Product();
+                $list = $product->productOptions;
+                $this->renderPartial('_calculator', array('list' => $list, 'positions' => $positions), false, true);
+                Yii::app()->end();
             }
         }
         $this->redirect(array('index'));
@@ -54,6 +71,24 @@ class SiteController extends Controller
         if (isset($_POST['del-key'])) {
             $key = $_POST['del-key'];
             Yii::app()->calculator->remove($key);
+
+            if (Yii::app()->request->isAjaxRequest) {
+                Yii::app()->clientScript->scriptMap = array(
+                    // В карте отключаем загрузку core-скриптов, УЖЕ подключенных до ajax загрузки
+                    'jquery.js' => false,
+                    'jquery.min.js' => false,
+                    'jquery-ui.min.js' => false,
+                    'jquery-ui.css' => false,
+                    'custom.css' => false,
+                    'chosen.jquery.js' => false,
+                    'chosen.css' => false
+                );
+                $positions = Yii::app()->calculator->getPositions();
+                $product = new Product();
+                $list = $product->productOptions;
+                $this->renderPartial('_calculator', array('list' => $list, 'positions' => $positions), false, true);
+                Yii::app()->end();
+            }
         }
         $this->redirect(array('index'));
     }
@@ -65,22 +100,26 @@ class SiteController extends Controller
             $weight = $_POST['weight'];
             $position = Yii::app()->calculator->itemAt($key);
             Yii::app()->calculator->update($position, $weight);
-        }
 
-        if (Yii::app()->request->isAjaxRequest) {
-            Yii::app()->clientScript->scriptMap = array(
-                // В карте отключаем загрузку core-скриптов, УЖЕ подключенных до ajax загрузки
-                'jquery.js' => false,
-                'jquery.min.js' => false,
-                'jquery-ui.min.js' => false,
-                'jquery-ui.css' => false,
-                'custom.css' => false
-            );
-            $positions = Yii::app()->calculator->getPositions();
-            $this->renderPartial('_calculator', array('positions' => $positions), false, true);
-            Yii::app()->end();
-        } else
-            $this->redirect(array('index'));
+            if (Yii::app()->request->isAjaxRequest) {
+                Yii::app()->clientScript->scriptMap = array(
+                    // В карте отключаем загрузку core-скриптов, УЖЕ подключенных до ajax загрузки
+                    'jquery.js' => false,
+                    'jquery.min.js' => false,
+                    'jquery-ui.min.js' => false,
+                    'jquery-ui.css' => false,
+                    'custom.css' => false,
+                    'chosen.jquery.js' => false,
+                    'chosen.css' => false
+                );
+                $positions = Yii::app()->calculator->getPositions();
+                $product = new Product();
+                $list = $product->productOptions;
+                $this->renderPartial('_calculator', array('list' => $list, 'positions' => $positions), false, true);
+                Yii::app()->end();
+            }
+        }
+        $this->redirect(array('index'));
     }
 
     /**
