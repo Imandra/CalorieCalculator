@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table '{{product}}':
  * @property integer $id
+ * @property integer $owner_id
  * @property string $name
  * @property double $proteins
  * @property double $fats
@@ -90,13 +91,13 @@ class Product extends CActiveRecord implements IECalculatorPosition
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, proteins, fats, carbohydrates, calories', 'required'),
-            array('calories', 'numerical', 'integerOnly' => true),
+            array('owner_id, name, proteins, fats, carbohydrates, calories', 'required'),
+            array('calories, owner_id', 'numerical', 'integerOnly' => true),
             array('proteins, fats, carbohydrates', 'numerical'),
             array('name', 'length', 'max' => 128),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, proteins, fats, carbohydrates, calories', 'safe', 'on' => 'search'),
+            array('id, owner_id, name, proteins, fats, carbohydrates, calories', 'safe', 'on' => 'search'),
         );
     }
 
@@ -144,11 +145,14 @@ class Product extends CActiveRecord implements IECalculatorPosition
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
+        $criteria->compare('owner_id', $this->owner_id);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('proteins', $this->proteins);
         $criteria->compare('fats', $this->fats);
         $criteria->compare('carbohydrates', $this->carbohydrates);
         $criteria->compare('calories', $this->calories);
+
+        $criteria->addInCondition('owner_id', array(0, Yii::app()->user->id));
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -179,6 +183,8 @@ class Product extends CActiveRecord implements IECalculatorPosition
         $criteria = new CDbCriteria;
         // сортируем по названию продукта
         $criteria->order = 'name';
+        // показываем только базовые продукты и продукты данного юзера
+        $criteria->addInCondition('owner_id', array(0, Yii::app()->user->id));
         // исключаем уже выбранные продукты
         $selected = Yii::app()->calculator->getCalculatorOptions(__CLASS__);
         $criteria->addNotInCondition('id', $selected);

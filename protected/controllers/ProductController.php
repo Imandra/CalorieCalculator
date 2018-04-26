@@ -71,6 +71,7 @@ class ProductController extends Controller
 
 		if (isset($_POST['Product'])) {
 			$model->attributes=$_POST['Product'];
+			$model->owner_id = Yii::app()->user->id;
 			if ($model->save()) {
 				$this->redirect(array('view','id'=>$model->id));
 			}
@@ -91,6 +92,7 @@ class ProductController extends Controller
             $model->fats = Yii::app()->calculator->totalFatsPer100;
             $model->carbohydrates = Yii::app()->calculator->totalCarbohydratesPer100;
             $model->calories = Yii::app()->calculator->totalCaloriesPer100;
+            $model->owner_id = Yii::app()->user->id;
 
             if ($model->save()) {
                 Yii::app()->user->setFlash('success', Yii::t('product', 'Product Saved!'));
