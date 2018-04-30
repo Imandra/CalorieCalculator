@@ -17,6 +17,15 @@
  */
 class User extends CActiveRecord
 {
+    const ROLE_ADMIN = 'administrator';
+    const ROLE_USER = 'user';
+
+    /**
+     * Подтверждение пароля
+     * @var string
+     */
+    public $password_repeat;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -33,8 +42,11 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email', 'required'),
+			array('username, password, password_repeat, email', 'required'),
 			array('username, password, email', 'length', 'max'=>128),
+            array('email', 'email'),
+            array('password', 'compare'),
+            array('password_repeat', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, username, password, email', 'safe', 'on'=>'search'),
@@ -63,6 +75,7 @@ class User extends CActiveRecord
 			'id' => Yii::t('user','ID'),
 			'username' => Yii::t('user','Username'),
 			'password' => Yii::t('user','Password'),
+            'password_repeat' => Yii::t('user','Password Repeat'),
 			'email' => Yii::t('user','Email'),
 		);
 	}

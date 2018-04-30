@@ -48,6 +48,7 @@ return array(
     // application components
     'components' => array(
         'user' => array(
+            'class' => 'WebUser',
             // enable cookie-based authentication
             'allowAutoLogin' => true,
         ),
@@ -67,7 +68,12 @@ return array(
             ),
             'showScriptName' => false
         ),
-
+        'authManager' => array(
+            // Будем использовать свой менеджер авторизации
+            'class' => 'PhpAuthManager',
+            // Роль по умолчанию. Все, кто не админы и юзеры — гости.
+            'defaultRoles' => array('guest'),
+        ),
         /*
         'db'=>array(
             'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',

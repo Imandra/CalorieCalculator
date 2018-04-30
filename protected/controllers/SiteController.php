@@ -168,4 +168,32 @@ class SiteController extends Controller
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }
+
+    public function actionSignUp()
+    {
+        if (!Yii::app()->user->isGuest) {
+            $this->redirect(array('index'));
+        }
+
+        $userModel = new User();
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if (isset($_POST['User'])) {
+            $userModel->attributes = $_POST['User'];
+            if ($userModel->save()) {
+                $loginForm = new LoginForm();
+                $loginForm->username = $userModel->username;
+                $loginForm->password = $_POST['User']['password'];
+
+                // логиним пользователя
+                if ($loginForm->validate() && $loginForm->login()) {
+                    Yii::app()->user->setFlash('signUp', Yii::t('default', 'Registration successful'));
+                    $this->redirect(array('index'));
+                }
+            }
+        }
+        $this->render('signUp', array('model' => $userModel));
+    }
 }

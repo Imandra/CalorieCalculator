@@ -9,5 +9,7 @@ return array(
     'ID' => 'ID',
     'Username' => 'Логин',
     'Password' => 'Пароль',
+    'Password Repeat' => 'Повтор пароля',
     'Email' => 'Электронная почта',
+    'Remember me next time' => 'Запомнить меня на 30 дней',
 );

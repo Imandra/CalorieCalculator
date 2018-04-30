@@ -152,7 +152,11 @@ class Product extends CActiveRecord implements IECalculatorPosition
         $criteria->compare('carbohydrates', $this->carbohydrates);
         $criteria->compare('calories', $this->calories);
 
-        $criteria->addInCondition('owner_id', array(0, Yii::app()->user->id));
+        if (Yii::app()->user->checkAccess('administrator')) {
+            $criteria->addInCondition('owner_id', array(0, Yii::app()->user->id));
+        } else {
+            $criteria->addInCondition('owner_id', array(Yii::app()->user->id));
+        }
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

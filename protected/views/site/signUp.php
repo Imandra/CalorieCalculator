@@ -1,23 +1,22 @@
 <?php
 /* @var $this SiteController */
-/* @var $model LoginForm */
+/* @var $model User */
 /* @var $form CActiveForm */
-
-$this->pageTitle = Yii::app()->name . ' - ' . Yii::t('default', 'Login');
+$this->pageTitle = Yii::app()->name . ' - ' . Yii::t('default', 'Sign Up');
 $this->breadcrumbs = array(
-    Yii::t('default', 'Login'),
+    Yii::t('default', 'Sign Up'),
 );
 ?>
 <div>
 
-    <h1><?php echo Yii::t('default', 'Login'); ?></h1>
+    <h1><?php echo Yii::t('default', 'Sign Up'); ?></h1>
 
 </div>
 
 <div class="form">
 
     <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id' => 'login-form',
+        'id' => 'registration-form',
         'enableClientValidation' => true,
         'clientOptions' => array(
             'validateOnSubmit' => true,
@@ -32,8 +31,12 @@ $this->breadcrumbs = array(
 
     <?php echo $form->passwordFieldControlGroup($model, 'password', array('span' => 3, 'maxlength' => 128)); ?>
 
+    <?php echo $form->passwordFieldControlGroup($model, 'password_repeat', array('span' => 3, 'maxlength' => 128)); ?>
+
+    <?php echo $form->textFieldControlGroup($model, 'email', array('span' => 3, 'maxlength' => 128)); ?>
+
     <div>
-        <?php echo TbHtml::submitButton(Yii::t('default', 'Login'), array(
+        <?php echo TbHtml::submitButton(Yii::t('default', 'Sign Up'), array(
             'color' => TbHtml::BUTTON_COLOR_PRIMARY,
             'size' => TbHtml::BUTTON_SIZE_LARGE,
         )); ?>
