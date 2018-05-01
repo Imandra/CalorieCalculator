@@ -89,7 +89,9 @@ class ProductController extends Controller
                 Yii::app()->user->setFlash('success', Yii::t('product', 'Product Saved!'));
                 $this->redirect(array('site/index'));
             } else {
-                Yii::app()->user->setFlash('error', Yii::t('product', 'Error! Product Is Not Saved!'));
+                $errors = $model->getErrors('name');
+                $error = !empty($errors) ? ' ' . $errors[0] : '';
+                Yii::app()->user->setFlash('error', Yii::t('product', 'Error! Product Is Not Saved!') . $error);
                 $this->redirect(array('site/index'));
             }
         } else

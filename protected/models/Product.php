@@ -88,16 +88,18 @@ class Product extends CActiveRecord implements IECalculatorPosition
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('owner_id', array(0, Yii::app()->user->id));
+
         return array(
             array('owner_id, name, proteins, fats, carbohydrates, calories', 'required'),
             array('calories, owner_id', 'numerical', 'integerOnly' => true),
             array('proteins, fats, carbohydrates', 'numerical'),
-            array('name', 'length', 'max' => 128),
+            array('name', 'length', 'max' => 128, 'tooLong' => 'Наименование продукта слишком длинное.'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, owner_id, name, proteins, fats, carbohydrates, calories', 'safe', 'on' => 'search'),
+            array('name', 'unique', 'criteria' => $criteria, 'message' => 'Продукт с таким наименованием уже существует.')
         );
     }
 
