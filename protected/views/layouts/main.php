@@ -19,8 +19,8 @@
             'htmlOptions'=>array('class'=>'pull-right'),
             'items' => array(
                 array('label' => Yii::t('default', 'Home'), 'url' => array('/site/index')),
-                array('label' => Yii::t('default', 'About'), 'url' => array('/site/page', 'view' => 'about')),
-                /*array('label' => Yii::t('default', 'Contact'), 'url' => array('/site/contact')),*/
+                //array('label' => Yii::t('default', 'About'), 'url' => array('/site/page', 'view' => 'about')),
+                //array('label' => Yii::t('default', 'Contact'), 'url' => array('/site/contact')),
                 array('label' => Yii::t('product', 'Products'), 'url' => array('/product/create'), 'visible' => Yii::app()->user->checkAccess('user')),
                 array('label' => Yii::t('dailyReport', 'Daily Report'), 'url' => array('/dailyReport/admin'), 'visible' => Yii::app()->user->checkAccess('user')),
                 array('label' => Yii::t('user', 'Users'), 'url' => array('/user/create'), 'visible' => Yii::app()->user->checkAccess('administrator')),

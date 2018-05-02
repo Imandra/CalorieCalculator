@@ -5,7 +5,7 @@ $this->pageTitle = Yii::app()->name;
 
 <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/custom.css"); ?>
 
-<?php if(Yii::app()->user->hasFlash('signUp')) : ?>
+<?php if (Yii::app()->user->hasFlash('signUp')) : ?>
     <div class="flash-success">
         <?php echo Yii::app()->user->getFlash('signUp'); ?>
     </div>
@@ -22,7 +22,24 @@ $this->pageTitle = Yii::app()->name;
     </div>
 <?php endif; ?>
 
-<h1><?php echo Yii::app()->name ?></h1>
+<div class="row">
+    <div class="span8">
+        <h1><?php echo Yii::app()->name ?></h1>
+        <hr>
+        <p class="about">
+            С помощью данного калькулятора вы можете рассчитать калорийность вашего рациона питания. Также
+            вычисляется общее количество белков, жиров и углеводов.
+        </p>
+        <p class="about">
+            Выберите из списка нужный вам продукт и он автоматически добавится к расчету. По умолчанию приводятся данные
+            на 100 г. Изменить вес продукта можно в соответствующем поле при помощи кнопок "уменьшить" или "увеличить",
+            а удалить продукт из расчета кнопкой "Х".
+        </p>
+    </div>
+    <div class="span4">
+        <img src="<?php echo Yii::app()->request->baseUrl . '/images/cat.png' ?>" class="cat-img">
+    </div>
+</div>
 
 <?php if (!Yii::app()->user->isGuest) : ?>
     <?php $this->beginWidget('system.zii.widgets.jui.CJuiDialog',

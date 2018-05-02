@@ -1,6 +1,7 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
+    background: url("../images/bg.jpg");
 }
 
 thead {
@@ -25,5 +26,17 @@ tfoot {
 }
 
 .about {
-    text-indent: 15px;
+    /*text-indent: 1.1em;*/
+    text-align: justify;
+}
+
+.cat-img {
+    float: right;
+}
+
+@media (max-width: 767px) {
+    .cat-img {
+        float: left;
+        margin-bottom: 1em;
+    }
 }

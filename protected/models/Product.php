@@ -93,8 +93,8 @@ class Product extends CActiveRecord implements IECalculatorPosition
 
         return array(
             array('owner_id, name, proteins, fats, carbohydrates, calories', 'required'),
-            array('calories, owner_id', 'numerical', 'integerOnly' => true),
-            array('proteins, fats, carbohydrates', 'numerical'),
+            array('calories, owner_id', 'numerical', 'integerOnly' => true, 'message' => 'Значение поля  &laquo;{attribute}&raquo; должно быть целым числом.'),
+            array('proteins, fats, carbohydrates', 'numerical', 'message' => 'Значение поля  &laquo;{attribute}&raquo; должно быть числом.'),
             array('name', 'length', 'max' => 128, 'tooLong' => 'Наименование продукта слишком длинное.'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.

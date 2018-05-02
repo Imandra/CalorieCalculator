@@ -1,15 +1,19 @@
 <?php echo CHtml::beginForm(array('site/addPosition'), 'post'); ?>
 <?php echo TbHtml::hiddenField('type', 'Product'); ?>
-<?php echo TbHtml::label('Выберите продукт:', 'id'); ?>
+<?php echo TbHtml::label('Выберите продукт для расчета:', 'id', array('style' => 'font-style: italic;')); ?>
 <?php echo Chosen::dropDownList('id', '', $list,
     array('empty' => '', 'class' => 'chosen-select', 'data-placeholder' => ' ',
         'style' => 'width:230px')); ?>
 <?php echo CHtml::endForm(); ?>
 
 <?php if (!empty($positions)) {
-    echo '<table class="table table-bordered"><thead><tr><th width="20%">Наименование продукта</th><th width="15%">Вес&nbsp;продукта, г</th>
-            <th width="15%">Белки, г</th><th width="15%">Жиры, г</th><th width="15%">Углеводы, г</th>
-            <th width="15%">Калории, Ккал</th><th width="5%"></th></tr></thead><tbody>';
+    echo '<table class="table table-bordered"><thead><tr>
+            <th width="20%">Наименование продукта</th>
+            <th width="15%">Вес&nbsp;продукта, г</th>
+            <th width="15%">Белки, г</th>
+            <th width="15%">Жиры, г</th><th width="15%">Углеводы, г</th>
+            <th width="15%">Калории, Ккал</th>
+            <th width="5%"></th></tr></thead><tbody>';
 
     foreach ($positions as $position) {
         echo '<tr><td>' . $position->calcName . '</td><td>' ?>
