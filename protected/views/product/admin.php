@@ -42,6 +42,7 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
+<div class="table-container">
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'product-grid',
     'dataProvider' => $model->search(),
@@ -61,3 +62,4 @@ $('.search-form form').submit(function(){
         ),
     ),
 )); ?>
+</div>

@@ -1,15 +1,15 @@
 <?php echo CHtml::beginForm(array('site/addPosition'), 'post'); ?>
 <?php echo TbHtml::hiddenField('type', 'Product'); ?>
-<?php echo TbHtml::label('Выберите продукт для расчета:', 'id', array('style' => 'font-style: italic;')); ?>
+<?php echo TbHtml::label('Выберите продукт для расчета:', 'id', array('class' => 'chosen-label')); ?>
 <?php echo Chosen::dropDownList('id', '', $list,
-    array('empty' => '', 'class' => 'chosen-select', 'data-placeholder' => ' ',
-        'style' => 'width:230px')); ?>
+    array('empty' => '', 'class' => 'chosen-select', 'data-placeholder' => ' ')); ?>
 <?php echo CHtml::endForm(); ?>
 
 <?php if (!empty($positions)) {
-    echo '<table class="table table-bordered"><thead><tr>
+    echo '<div class="table-container">
+        <table class="table table-bordered"><thead><tr>
             <th width="20%">Наименование продукта</th>
-            <th width="15%">Вес&nbsp;продукта, г</th>
+            <th width="15%">Вес продукта, г</th>
             <th width="15%">Белки, г</th>
             <th width="15%">Жиры, г</th><th width="15%">Углеводы, г</th>
             <th width="15%">Калории, Ккал</th>
@@ -46,7 +46,7 @@
             '<i class="fa fa-check" aria-hidden="true"></i>'); ?>
     <?php endif; ?>
 
-    <?php echo '</td></tr></tfoot></table>';
+    <?php echo '</td></tr></tfoot></table></div>';
 } ?>
 
 <?php if (!Yii::app()->user->isGuest && !empty($positions)) : ?>

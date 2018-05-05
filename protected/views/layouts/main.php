@@ -3,6 +3,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl . '/images/favicon.ico';?>" type="image/x-icon">
     <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/font-awesome/css/font-awesome.min.css"); ?>
     <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/style.css"); ?>
     <?php Yii::app()->bootstrap->register(); ?>
@@ -11,8 +12,7 @@
 
 <body>
 <?php $this->widget('bootstrap.widgets.TbNavbar', array(
-    'brandLabel' => '<img src ="' . Yii::app()->request->baseUrl . '/images/logo.png">',
-    'brandOptions'=>array('style' => 'padding: 0 20px;'),
+    'brandLabel' => '<i class="fa fa-calculator logo" aria-hidden="true"></i><span class="logo-text">Calorie Calculator</span>',
     'items' => array(
         array(
             'class' => 'bootstrap.widgets.TbNav',
@@ -37,6 +37,7 @@
         <?php if (isset($this->breadcrumbs)): ?>
             <?php $this->widget('zii.widgets.CBreadcrumbs', array(
                 'links' => $this->breadcrumbs,
+                'homeLink' => CHtml::link(Yii::t('default', 'Home'), Yii::app()->homeUrl),
             )); ?><!-- breadcrumbs -->
         <?php endif ?>
     </div>

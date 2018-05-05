@@ -22,4 +22,5 @@ return array(
     'Data Saved!' => 'Данные успешно сохранены!',
     'Sign Up' => 'Регистрация',
     'Registration successful' => 'Вы успешно зарегистрировались',
+    'Search' => 'Поиск',
 );

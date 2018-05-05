@@ -4,6 +4,24 @@ body {
     background: url("../images/bg.jpg");
 }
 
+.logo, .logo-text {
+    color: #333;
+}
+
+.logo-text {
+    margin-left: 0.5em;
+}
+
+.table-container {
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-container table thead th {
+    vertical-align: top;
+}
+
 thead {
     background-color: #d9edf7;
 }
@@ -39,4 +57,19 @@ tfoot {
         float: left;
         margin-bottom: 1em;
     }
+}
+
+@media (max-width: 480px) {
+    .table-container {
+        margin-bottom: 0.5em;
+    }
+}
+
+.chosen-label {
+    font-style: italic;
+    cursor: default;
+}
+
+.chosen-select, .chosen-label {
+    width: 230px;
 }
