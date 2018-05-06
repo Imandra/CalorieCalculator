@@ -21,52 +21,52 @@ return false;
 });
 ");
 ?>
-<h1><?php echo Yii::t('dailyReport', 'Daily Report') . ': ' . ucfirst(Yii::app()->user->name); ?></h1>
+    <h1><?php echo Yii::t('dailyReport', 'Daily Report') . ': ' . ucfirst(Yii::app()->user->name); ?></h1>
 
-<p>
-    <?php echo Yii::t('default', 'You may optionally enter a comparison operator (<, <=, >, >=, <> or =)' .
-        ' at the beginning of each of your search values to specify how the comparison should be done.') ?>
-</p>
+    <p>
+        <?php echo Yii::t('default', 'You may optionally enter a comparison operator (<, <=, >, >=, <> or =)' .
+            ' at the beginning of each of your search values to specify how the comparison should be done.') ?>
+    </p>
 
-<div class="table-container">
-    <?php $this->widget('bootstrap.widgets.TbGridView', array(
-        'id' => 'daily-report-grid',
-        'dataProvider' => $model->search(),
-        'type' => TbHtml::GRID_TYPE_BORDERED,
-        'filter' => $model,
-        'template' => "{items}\n<div class=\"row-fluid\"><div class=\"span8\">{pager}</div><div class=\"span4\">{summary}</div></div>",
-        'pager' => array('class' => 'bootstrap.widgets.TbPager',
-            'maxButtonCount' => 5),
-        'columns' => array(
-            array(
-                'name' => 'date',
-                'type' => 'raw',
-                'value' => 'CHtml::link(CHtml::encode($data->date. ", " . $data->dayOfWeek),array("meal/admin","date"=>$data->date))'
-            ),
-            array(
-                'name' => 'proteins_per_day',
-                'type' => 'raw',
-                'value' => '$data->proteins_per_day',
-            ),
-            array(
-                'name' => 'fats_per_day',
-                'type' => 'raw',
-                'value' => '$data->fats_per_day',
-            ),
-            array(
-                'name' => 'carbohydrates_per_day',
-                'type' => 'raw',
-                'value' => '$data->carbohydrates_per_day',
-            ),
-            array(
-                'name' => 'calories_per_day',
-                'type' => 'raw',
-                'value' => '$data->calories_per_day',
-            ),
-            array(
-                'class' => 'bootstrap.widgets.TbButtonColumn',
-                'template' => '{delete}',
-            ),
+<?php $this->widget('bootstrap.widgets.TbGridView', array(
+    'id' => 'daily-report-grid',
+    'dataProvider' => $model->search(),
+    'type' => TbHtml::GRID_TYPE_BORDERED,
+    'filter' => $model,
+    'template' => "<div class=\"table-container\">{items}\n</div><div class=\"row-fluid\"><div class=\"span8\">{pager}</div><div class=\"span4\">{summary}</div></div>",
+    'pager' => array(
+        'class' => 'bootstrap.widgets.TbPager',
+        'maxButtonCount' => 5
+    ),
+    'columns' => array(
+        array(
+            'name' => 'date',
+            'type' => 'raw',
+            'value' => 'CHtml::link(CHtml::encode($data->date. ", " . $data->dayOfWeek),array("meal/admin","date"=>$data->date))'
         ),
-    )); ?>
-</div>
+        array(
+            'name' => 'proteins_per_day',
+            'type' => 'raw',
+            'value' => '$data->proteins_per_day',
+        ),
+        array(
+            'name' => 'fats_per_day',
+            'type' => 'raw',
+            'value' => '$data->fats_per_day',
+        ),
+        array(
+            'name' => 'carbohydrates_per_day',
+            'type' => 'raw',
+            'value' => '$data->carbohydrates_per_day',
+        ),
+        array(
+            'name' => 'calories_per_day',
+            'type' => 'raw',
+            'value' => '$data->calories_per_day',
+        ),
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+            'template' => '{delete}',
+        ),
+    ),
+)); ?>

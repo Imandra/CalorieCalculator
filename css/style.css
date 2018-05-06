@@ -1,5 +1,4 @@
 body {
-    padding-top: 60px;
     padding-bottom: 40px;
     background: url("../images/bg.jpg");
 }
@@ -50,6 +49,12 @@ tfoot {
 
 .cat-img {
     float: right;
+}
+
+@media (min-width: 979px) {
+    body {
+        padding-top: 60px;
+    }
 }
 
 @media (max-width: 767px) {
