@@ -57,11 +57,19 @@ tfoot {
         float: left;
         margin-bottom: 1em;
     }
+
+    h1 {
+        font-size: 36px;
+    }
 }
 
 @media (max-width: 480px) {
     .table-container {
         margin-bottom: 0.5em;
+    }
+
+    h1 {
+        font-size: 32px;
     }
 }
 
@@ -72,4 +80,18 @@ tfoot {
 
 .chosen-select, .chosen-label {
     width: 230px;
+}
+
+.flash-success {
+    background: #E6EFC2;
+    color: #264409;
+    border-color: #C6D880;
+    padding: 10px;
+}
+
+.flash-error {
+    background:#FBE3E4;
+    color:#8a1f11;
+    border-color:#FBC2C4;
+    padding: 10px;
 }

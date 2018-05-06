@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl . '/images/favicon.ico';?>" type="image/x-icon">
     <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/font-awesome/css/font-awesome.min.css"); ?>
-    <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/style.css"); ?>
     <?php Yii::app()->bootstrap->register(); ?>
+    <?php Yii::app()->clientScript->registerCssFile(Yii::app()->request->baseUrl . "/css/style.css"); ?>
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
