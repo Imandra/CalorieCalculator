@@ -37,7 +37,7 @@ return false;
     'template' => "<div class=\"table-container\">{items}\n</div><div class=\"row-fluid\"><div class=\"span8\">{pager}</div><div class=\"span4\">{summary}</div></div>",
     'pager' => array(
         'class' => 'bootstrap.widgets.TbPager',
-        'maxButtonCount' => 5
+        'maxButtonCount' => 4
     ),
     'columns' => array(
         array(

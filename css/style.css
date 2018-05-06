@@ -21,6 +21,10 @@ body {
     vertical-align: top;
 }
 
+table {
+    min-width: 550px;
+}
+
 thead {
     background-color: #d9edf7;
 }
