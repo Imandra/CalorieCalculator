@@ -55,16 +55,25 @@ tfoot {
     float: right;
 }
 
+.cat-img-tablet {
+    display: none;
+}
+
 @media (min-width: 979px) {
     body {
         padding-top: 60px;
     }
 }
 
-@media (max-width: 767px) {
+@media (min-width: 481px) and (max-width: 767px) {
     .cat-img {
+        display: none;
+    }
+
+    .cat-img-tablet {
+        display: inline-block;
         float: left;
-        margin-bottom: 1em;
+        margin: 0 2em 1em 0;
     }
 
     h1 {
@@ -79,6 +88,11 @@ tfoot {
 
     h1 {
         font-size: 32px;
+    }
+
+    .cat-img {
+        float: left;
+        margin-bottom: 1em;
     }
 }
 
@@ -99,8 +113,8 @@ tfoot {
 }
 
 .flash-error {
-    background:#FBE3E4;
-    color:#8a1f11;
-    border-color:#FBC2C4;
+    background: #FBE3E4;
+    color: #8a1f11;
+    border-color: #FBC2C4;
     padding: 10px;
 }

@@ -25,6 +25,7 @@ $this->pageTitle = Yii::app()->name;
         <h1><?php echo Yii::app()->name ?></h1>
         <hr>
         <p class="about">
+            <img src="<?php echo Yii::app()->request->baseUrl . '/images/cat.png' ?>" class="cat-img-tablet">
             С помощью данного калькулятора вы можете рассчитать калорийность вашего рациона питания. Также
             вычисляется общее количество белков, жиров и углеводов.
         </p>
