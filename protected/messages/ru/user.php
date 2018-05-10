@@ -12,4 +12,5 @@ return array(
     'Password Repeat' => 'Повтор пароля',
     'Email' => 'Электронная почта',
     'Remember me next time' => 'Запомнить меня на 30 дней',
+    'Email or Login' => 'Эл. почта или логин',
 );

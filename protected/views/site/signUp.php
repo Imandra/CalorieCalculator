@@ -27,13 +27,13 @@ $this->breadcrumbs = array(
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->textFieldControlGroup($model, 'username', array('span' => 3, 'maxlength' => 128)); ?>
+    <?php echo $form->textFieldControlGroup($model, 'username', array('span' => 3, 'maxlength' => 30)); ?>
 
-    <?php echo $form->passwordFieldControlGroup($model, 'password', array('span' => 3, 'maxlength' => 128)); ?>
+    <?php echo $form->passwordFieldControlGroup($model, 'password', array('span' => 3, 'maxlength' => 30)); ?>
 
-    <?php echo $form->passwordFieldControlGroup($model, 'password_repeat', array('span' => 3, 'maxlength' => 128)); ?>
+    <?php echo $form->passwordFieldControlGroup($model, 'password_repeat', array('span' => 3, 'maxlength' => 30)); ?>
 
-    <?php echo $form->textFieldControlGroup($model, 'email', array('span' => 3, 'maxlength' => 128)); ?>
+    <?php echo $form->textFieldControlGroup($model, 'email', array('span' => 3, 'maxlength' => 30)); ?>
 
     <div>
         <?php echo TbHtml::submitButton(Yii::t('default', 'Sign Up'), array(
