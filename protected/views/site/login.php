@@ -28,10 +28,10 @@ $this->breadcrumbs = array(
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->textFieldControlGroup($model, 'username', array('span' => 3, 'maxlength' => 30,
+    <?php echo $form->textFieldControlGroup($model, 'username', array('span' => 3, 'maxlength' => 40,
         'labelOptions' => array('label' => Yii::t('user', 'Email or Login')))); ?>
 
-    <?php echo $form->passwordFieldControlGroup($model, 'password', array('span' => 3, 'maxlength' => 30)); ?>
+    <?php echo $form->passwordFieldControlGroup($model, 'password', array('span' => 3, 'maxlength' => 40)); ?>
 
     <div>
         <?php echo TbHtml::submitButton(Yii::t('default', 'Login'), array(

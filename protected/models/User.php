@@ -43,7 +43,9 @@ class User extends CActiveRecord
         // will receive user inputs.
         return array(
             array('username, password, password_repeat, email', 'required'),
-            array('username, password, email', 'length', 'max' => 30),
+            array('username, password, password_repeat, email', 'length', 'max' => 40),
+            array('username', 'unique', 'message' => 'Логин &laquo;{value}&raquo; уже занят.'),
+            array('email', 'unique', 'message' => 'Адрес эл. почты &laquo;{value}&raquo; уже используется.'),
             array('email', 'email'),
             array('password', 'compare'),
             array('password_repeat', 'safe'),
