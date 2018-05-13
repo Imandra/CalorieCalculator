@@ -29,9 +29,10 @@ $this->breadcrumbs = array(
 
     <?php echo $form->textFieldControlGroup($model, 'username', array('span' => 3, 'maxlength' => 40)); ?>
 
-    <?php echo $form->passwordFieldControlGroup($model, 'password', array('span' => 3, 'maxlength' => 40)); ?>
+    <?php echo $form->passwordFieldControlGroup($model, 'new_password', array('span' => 3, 'maxlength' => 40)); ?>
 
-    <?php echo $form->passwordFieldControlGroup($model, 'password_repeat', array('span' => 3, 'maxlength' => 40)); ?>
+    <?php echo $form->passwordFieldControlGroup($model, 'new_confirm', array('span' => 3, 'maxlength' => 40,
+        'labelOptions' => array('label' => 'Подтвердите пароль <span class="required">*</span>'))); ?>
 
     <?php echo $form->textFieldControlGroup($model, 'email', array('span' => 3, 'maxlength' => 40)); ?>
 

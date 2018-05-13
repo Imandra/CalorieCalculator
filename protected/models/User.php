@@ -20,11 +20,8 @@ class User extends CActiveRecord
     const ROLE_ADMIN = 'administrator';
     const ROLE_USER = 'user';
 
-    /**
-     * Подтверждение пароля
-     * @var string
-     */
-    public $password_repeat;
+    public $new_password;
+    public $new_confirm;
 
     /**
      * @return string the associated database table name
@@ -42,13 +39,16 @@ class User extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('username, password, password_repeat, email', 'required'),
-            array('username, password, password_repeat, email', 'length', 'max' => 40),
-            array('username', 'unique', 'message' => 'Логин &laquo;{value}&raquo; уже занят.'),
-            array('email', 'unique', 'message' => 'Адрес эл. почты &laquo;{value}&raquo; уже используется.'),
-            array('email', 'email'),
-            array('password', 'compare'),
-            array('password_repeat', 'safe'),
+            array('username, email', 'required'),
+            array('username', 'match', 'pattern' => '#^[a-zA-Z0-9_\.-]+$#', 'message' => 'Логин содержит запрещённые символы.'),
+            array('email', 'email', 'message' => 'Неверный формат E-mail адреса.'),
+            array('username', 'unique', 'caseSensitive' => false, 'message' => 'Логин &laquo;{value}&raquo; уже занят.'),
+            array('email', 'unique', 'caseSensitive' => false, 'message' => 'Адрес эл. почты &laquo;{value}&raquo; уже используется.'),
+            array('email, username, new_password, new_confirm', 'length', 'max' => 40),
+            array('new_password', 'length', 'min' => 6, 'allowEmpty' => true),
+            array('new_confirm', 'compare', 'compareAttribute' => 'new_password', 'message' => 'Пароли не совпадают.'),
+            // Register
+            array('new_password', 'required', 'on' => 'register'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, username, password, email', 'safe', 'on' => 'search'),
@@ -77,8 +77,9 @@ class User extends CActiveRecord
             'id' => Yii::t('user', 'ID'),
             'username' => Yii::t('user', 'Username'),
             'password' => Yii::t('user', 'Password'),
-            'password_repeat' => Yii::t('user', 'Password Repeat'),
             'email' => Yii::t('user', 'Email'),
+            'new_password' => Yii::t('user', 'New Password'),
+            'new_confirm' => Yii::t('user', 'New Confirm'),
         );
     }
 
@@ -124,11 +125,15 @@ class User extends CActiveRecord
     /**
      * apply a hash on the password before we store it in the database
      */
-    protected function afterValidate()
+    protected function beforeSave()
     {
-        parent::afterValidate();
-        if (!$this->hasErrors())
-            $this->password = $this->hashPassword($this->password);
+        if (parent::beforeSave()) {
+            if ($this->new_password) {
+                $this->password = $this->hashPassword($this->new_password);
+            }
+            return true;
+        } else
+            return false;
     }
 
     /**

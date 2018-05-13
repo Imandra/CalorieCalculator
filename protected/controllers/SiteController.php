@@ -175,7 +175,7 @@ class SiteController extends Controller
             $this->redirect(array('index'));
         }
 
-        $userModel = new User();
+        $userModel = new User('register');
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -185,7 +185,7 @@ class SiteController extends Controller
             if ($userModel->save()) {
                 $loginForm = new LoginForm();
                 $loginForm->username = $userModel->username;
-                $loginForm->password = $_POST['User']['password'];
+                $loginForm->password = $_POST['User']['new_password'];
 
                 // логиним пользователя
                 if ($loginForm->validate() && $loginForm->login()) {
