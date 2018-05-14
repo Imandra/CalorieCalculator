@@ -48,7 +48,7 @@ class User extends CActiveRecord
             array('new_password', 'length', 'min' => 6, 'allowEmpty' => true),
             array('new_confirm', 'compare', 'compareAttribute' => 'new_password', 'message' => 'Пароли не совпадают.'),
             // Register
-            array('new_password', 'required', 'on' => 'register'),
+            array('new_password, new_confirm', 'required', 'on' => 'register'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, username, password, email', 'safe', 'on' => 'search'),
