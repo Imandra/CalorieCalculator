@@ -12,6 +12,6 @@ return array(
     'New Password' => 'Пароль',
     'New Confirm' => 'Подтвердите пароль',
     'Email' => 'Электронная почта',
-    'Remember me next time' => 'Запомнить меня на 30 дней',
+    'Remember me next time' => 'Запомнить меня',
     'Email or Login' => 'Эл. почта или логин',
 );

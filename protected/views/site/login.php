@@ -33,10 +33,13 @@ $this->breadcrumbs = array(
 
     <?php echo $form->passwordFieldControlGroup($model, 'password', array('span' => 3, 'maxlength' => 40)); ?>
 
+    <?php echo $form->checkBoxControlGroup($model, 'rememberMe'); ?>
+
     <div>
         <?php echo TbHtml::submitButton(Yii::t('default', 'Login'), array(
             'color' => TbHtml::BUTTON_COLOR_PRIMARY,
             'size' => TbHtml::BUTTON_SIZE_LARGE,
+            'style' => 'margin-top: 10px;'
         )); ?>
     </div>
 
