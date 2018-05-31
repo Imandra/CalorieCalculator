@@ -1,8 +1,14 @@
 <?php echo CHtml::beginForm(array('site/addPosition'), 'post'); ?>
 <?php echo TbHtml::hiddenField('type', 'Product'); ?>
 <?php echo TbHtml::label('Выберите продукт для расчета:', 'id', array('class' => 'chosen-label')); ?>
-<?php echo Chosen::dropDownList('id', '', $list,
-    array('empty' => '', 'class' => 'chosen-select', 'data-placeholder' => ' ')); ?>
+
+<?php $id = 'list';
+if ($this->beginCache($id, array('duration' => 360000000, 'requestTypes' => array('POST'), 'varyByRoute' => false))) { ?>
+    <?php echo Chosen::dropDownList('id', '', $list,
+        array('empty' => '', 'class' => 'chosen-select', 'data-placeholder' => ' ')); ?>
+    <?php $this->endCache();
+} ?>
+
 <?php echo CHtml::endForm(); ?>
 
 <?php if (!empty($positions)) {

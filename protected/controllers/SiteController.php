@@ -45,6 +45,7 @@ class SiteController extends Controller
                 if (!empty($position))
                     Yii::app()->calculator->addItem($position);
             }
+            $this->deleteCache('list');
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->clientScript->scriptMap = array(
                     // В карте отключаем загрузку core-скриптов, УЖЕ подключенных до ajax загрузки
@@ -71,6 +72,7 @@ class SiteController extends Controller
         if (isset($_POST['del-key'])) {
             $key = $_POST['del-key'];
             Yii::app()->calculator->remove($key);
+            $this->deleteCache('list');
 
             if (Yii::app()->request->isAjaxRequest) {
                 Yii::app()->clientScript->scriptMap = array(
