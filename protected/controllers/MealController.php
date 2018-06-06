@@ -28,12 +28,12 @@ class MealController extends Controller
     {
         return array(
             array('allow', // allow authenticated user to perform some actions
-                'actions'=>array('index','view','create','update','admin','delete','save'),
+                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'save'),
                 //'users'=>array('@'),
-                'roles'=>array('user'),
+                'roles' => array('user'),
             ),
             array('deny',  // deny all users
-                'users'=>array('*'),
+                'users' => array('*'),
             ),
         );
     }
@@ -135,7 +135,7 @@ class MealController extends Controller
         if (isset($_GET['Meal']))
             $model->attributes = $_GET['Meal'];
 
-        if(isset($_GET['date']))
+        if (isset($_GET['date']))
             $model->datetime = $_GET['date'];
 
         $this->render('admin', array(
@@ -175,8 +175,7 @@ class MealController extends Controller
      */
     public function actionSave()
     {
-        if (Yii::app()->request->isPostRequest)
-        {
+        if (Yii::app()->request->isPostRequest) {
             $meal = new Meal();
             $meal->user_id = Yii::app()->user->id;
             $meal->datetime = date('Y-m-d H:i:s');

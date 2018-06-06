@@ -28,12 +28,12 @@ class DailyReportController extends Controller
     {
         return array(
             array('allow', // allow authenticated user to perform some actions
-                'actions'=>array('index','view','create','update','admin','delete'),
+                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
                 //'users'=>array('@'),
-                'roles'=>array('user'),
+                'roles' => array('user'),
             ),
             array('deny',  // deny all users
-                'users'=>array('*'),
+                'users' => array('*'),
             ),
         );
     }
