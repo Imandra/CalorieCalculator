@@ -1,8 +1,8 @@
 <?php
 /* @var $this SiteController */
 
-$this->pageTitle=Yii::app()->name . ' - ' . Yii::t('default', 'About');
-$this->breadcrumbs=array(
+$this->pageTitle = Yii::app()->name . ' - ' . Yii::t('default', 'About');
+$this->breadcrumbs = array(
     Yii::t('default', 'About'),
 );
 ?>
