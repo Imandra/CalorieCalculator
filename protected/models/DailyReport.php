@@ -91,15 +91,15 @@ class DailyReport extends CActiveRecord
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $criteria = new CDbCriteria;
+        $criteria = new DbCriteria;
 
         $criteria->compare('id', $this->id);
         $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('date', $this->date, true);
-        $criteria->compare('proteins_per_day', $this->proteins_per_day);
-        $criteria->compare('fats_per_day', $this->fats_per_day);
-        $criteria->compare('carbohydrates_per_day', $this->carbohydrates_per_day);
-        $criteria->compare('calories_per_day', $this->calories_per_day);
+        $criteria->compare('date', $this->date, true, 'AND', true, true);
+        $criteria->compare('proteins_per_day', $this->proteins_per_day, true);
+        $criteria->compare('fats_per_day', $this->fats_per_day, true);
+        $criteria->compare('carbohydrates_per_day', $this->carbohydrates_per_day, true);
+        $criteria->compare('calories_per_day', $this->calories_per_day, true);
 
         $criteria->addCondition('user_id=' . Yii::app()->user->id);
 

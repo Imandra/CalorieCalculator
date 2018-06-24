@@ -97,10 +97,10 @@ class Meal extends CActiveRecord
         $criteria->compare('id', $this->id);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('datetime', $this->datetime, true);
-        $criteria->compare('proteins', $this->proteins);
-        $criteria->compare('fats', $this->fats);
-        $criteria->compare('carbohydrates', $this->carbohydrates);
-        $criteria->compare('calories', $this->calories);
+        $criteria->compare('proteins', $this->proteins, true);
+        $criteria->compare('fats', $this->fats, true);
+        $criteria->compare('carbohydrates', $this->carbohydrates, true);
+        $criteria->compare('calories', $this->calories, true);
 
         $criteria->addCondition('user_id=' . Yii::app()->user->id);
 
