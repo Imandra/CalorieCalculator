@@ -27,12 +27,11 @@ class DailyReportController extends Controller
     public function accessRules()
     {
         return array(
-            array('allow', // allow authenticated user to perform some actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
-                //'users'=>array('@'),
+            array('allow',
+                'actions' => array('admin', 'delete'),
                 'roles' => array('user'),
             ),
-            array('deny',  // deny all users
+            array('deny',
                 'users' => array('*'),
             ),
         );
@@ -41,6 +40,7 @@ class DailyReportController extends Controller
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
+     * @throws CHttpException
      */
     public function actionView($id)
     {
@@ -57,8 +57,8 @@ class DailyReportController extends Controller
     {
         $model = new DailyReport;
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
         if (isset($_POST['DailyReport'])) {
             $model->attributes = $_POST['DailyReport'];
@@ -75,13 +75,14 @@ class DailyReportController extends Controller
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
         if (isset($_POST['DailyReport'])) {
             $model->attributes = $_POST['DailyReport'];
@@ -98,14 +99,16 @@ class DailyReportController extends Controller
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'admin' page.
      * @param integer $id the ID of the model to be deleted
+     * @throws CDbException
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {
         if (Yii::app()->request->isPostRequest) {
-// we only allow deletion via POST request
+            // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
-// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         } else
@@ -117,7 +120,9 @@ class DailyReportController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('DailyReport');
+        $dataProvider = new CActiveDataProvider('DailyReport', array('criteria' => array(
+            'condition' => 'user_id=:user_id',
+            'params' => array(':user_id' => Yii::app()->user->id),)));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -142,7 +147,7 @@ class DailyReportController extends Controller
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return DailyReport the loaded model
+     * @return CActiveRecord|DailyReport
      * @throws CHttpException
      */
     public function loadModel($id)

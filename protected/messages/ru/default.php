@@ -23,4 +23,5 @@ return array(
     'Sign Up' => 'Регистрация',
     'Registration successful' => 'Вы успешно зарегистрировались',
     'Search' => 'Поиск',
+    'You are not authorized to perform this action.' => 'У вас недостаточно прав для выполнения указанного действия.',
 );

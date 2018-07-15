@@ -27,12 +27,11 @@ class MealController extends Controller
     public function accessRules()
     {
         return array(
-            array('allow', // allow authenticated user to perform some actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'save'),
-                //'users'=>array('@'),
+            array('allow',
+                'actions' => array('admin', 'delete', 'save'),
                 'roles' => array('user'),
             ),
-            array('deny',  // deny all users
+            array('deny',
                 'users' => array('*'),
             ),
         );
@@ -41,6 +40,7 @@ class MealController extends Controller
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
+     * @throws CHttpException
      */
     public function actionView($id)
     {
@@ -57,8 +57,8 @@ class MealController extends Controller
     {
         $model = new Meal;
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
         if (isset($_POST['Meal'])) {
             $model->attributes = $_POST['Meal'];
@@ -75,13 +75,14 @@ class MealController extends Controller
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
         if (isset($_POST['Meal'])) {
             $model->attributes = $_POST['Meal'];
@@ -104,10 +105,10 @@ class MealController extends Controller
     public function actionDelete($id)
     {
         if (Yii::app()->request->isPostRequest) {
-// we only allow deletion via POST request
+            // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
-// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         } else
@@ -147,7 +148,7 @@ class MealController extends Controller
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return Meal the loaded model
+     * @return CActiveRecord|Meal
      * @throws CHttpException
      */
     public function loadModel($id)

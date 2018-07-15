@@ -27,12 +27,11 @@ class ProductController extends Controller
     public function accessRules()
     {
         return array(
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'saveAsProduct'),
-                //'users'=>array('@'),
+            array('allow',
+                'actions' => array('view', 'create', 'update', 'admin', 'delete', 'saveAsProduct'),
                 'roles' => array('user'),
             ),
-            array('deny',  // deny all users
+            array('deny',
                 'users' => array('*'),
             ),
         );
@@ -41,11 +40,18 @@ class ProductController extends Controller
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
+     * @throws CHttpException
      */
     public function actionView($id)
     {
+        $model = $this->loadModel($id);
+
+        if (!Yii::app()->user->checkAccess('manageProducts', array('product' => $model))) {
+            throw new CHttpException(403, Yii::t('default', 'You are not authorized to perform this action.'));
+        }
+
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
         ));
     }
 
@@ -73,6 +79,9 @@ class ProductController extends Controller
         ));
     }
 
+    /**
+     * @throws CHttpException
+     */
     public function actionSaveAsProduct()
     {
         $model = new Product();
@@ -102,10 +111,15 @@ class ProductController extends Controller
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
+
+        if (!Yii::app()->user->checkAccess('manageProducts', array('product' => $model))) {
+            throw new CHttpException(403, Yii::t('default', 'You are not authorized to perform this action.'));
+        }
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -126,10 +140,19 @@ class ProductController extends Controller
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'admin' page.
      * @param integer $id the ID of the model to be deleted
+     * @throws CDbException
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {
         if (Yii::app()->request->isPostRequest) {
+
+            $model = $this->loadModel($id);
+
+            if (!Yii::app()->user->checkAccess('manageProducts', array('product' => $model))) {
+                throw new CHttpException(403, Yii::t('default', 'You are not authorized to perform this action.'));
+            }
+
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
@@ -140,17 +163,6 @@ class ProductController extends Controller
         } else {
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
         }
-    }
-
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('Product');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
     }
 
     /**

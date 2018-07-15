@@ -27,12 +27,11 @@ class UserController extends Controller
     public function accessRules()
     {
         return array(
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+            array('allow',
                 'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
-                //'users'=>array('@'),
                 'roles' => array('administrator'),
             ),
-            array('deny',  // deny all users
+            array('deny',
                 'users' => array('*'),
             ),
         );
@@ -41,6 +40,7 @@ class UserController extends Controller
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
+     * @throws CHttpException
      */
     public function actionView($id)
     {
@@ -76,6 +76,7 @@ class UserController extends Controller
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
      */
     public function actionUpdate($id)
     {
@@ -100,6 +101,8 @@ class UserController extends Controller
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'admin' page.
      * @param integer $id the ID of the model to be deleted
+     * @throws CDbException
+     * @throws CHttpException
      */
     public function actionDelete($id)
     {

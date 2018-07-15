@@ -1,5 +1,6 @@
 <?php
 return array(
+    /* роли */
     'guest' => array(
         'type' => CAuthItem::TYPE_ROLE,
         'description' => 'Guest',
@@ -10,7 +11,8 @@ return array(
         'type' => CAuthItem::TYPE_ROLE,
         'description' => 'User',
         'children' => array(
-            'guest', // унаследуемся от гостя
+            'guest',
+            'manageOwnProducts',
         ),
         'bizRule' => null,
         'data' => null
@@ -19,9 +21,30 @@ return array(
         'type' => CAuthItem::TYPE_ROLE,
         'description' => 'Administrator',
         'children' => array(
-            'user',         // позволим админу всё, что позволено юзеру
+            'user',
+            'manageProducts',
         ),
         'bizRule' => null,
+        'data' => null
+    ),
+    /* операции */
+    'manageProducts' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Access to the user data',
+        'children' => array(
+            'guest',
+        ),
+        'bizRule' =>  null,
+        'data' => null
+    ),
+    /* задачи */
+    'manageOwnProducts' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Access to the own user data',
+        'children' => array(
+            'manageProducts',
+        ),
+        'bizRule' =>  'return Yii::app()->user->id==$params["product"]->owner_id;',
         'data' => null
     ),
 );

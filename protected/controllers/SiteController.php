@@ -35,6 +35,9 @@ class SiteController extends Controller
         $this->render('index', array('list' => $list, 'positions' => $positions));
     }
 
+    /**
+     * @throws CException
+     */
     public function actionAddPosition()
     {
         if (isset($_POST['id']) && isset($_POST['type'])) {
@@ -67,6 +70,9 @@ class SiteController extends Controller
         $this->redirect(array('index'));
     }
 
+    /**
+     * @throws CException
+     */
     public function actionRemovePosition()
     {
         if (isset($_POST['del-key'])) {
@@ -95,6 +101,9 @@ class SiteController extends Controller
         $this->redirect(array('index'));
     }
 
+    /**
+     * @throws CException
+     */
     public function actionChangePositionWeight()
     {
         if (isset($_POST['key']) && isset($_POST['weight'])) {
