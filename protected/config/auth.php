@@ -31,10 +31,7 @@ return array(
     'manageProducts' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Access to the user data',
-        'children' => array(
-            'guest',
-        ),
-        'bizRule' =>  null,
+        'bizRule' => null,
         'data' => null
     ),
     /* задачи */
@@ -44,7 +41,7 @@ return array(
         'children' => array(
             'manageProducts',
         ),
-        'bizRule' =>  'return Yii::app()->user->id==$params["product"]->owner_id;',
+        'bizRule' => 'return Yii::app()->user->id==$params["product"]->owner_id;',
         'data' => null
     ),
 );
