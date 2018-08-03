@@ -22,23 +22,23 @@ if ($this->beginCache($id, array('duration' => 360000000, 'requestTypes' => arra
             <th width="5%"></th></tr></thead><tbody>';
 
     foreach ($positions as $position) {
-        echo '<tr><td>' . $position->calcName . '</td><td>' ?>
+        echo '<tr><td>' . CHtml::encode($position->calcName) . '</td><td>' ?>
 
         <form method="post" style="margin: 0;">
             <span class="minus"><i class="fa fa-caret-left fa-lg" aria-hidden="true"></i></span>
-            <span class="display"><?php echo $position->weight ?></span>
-            <input type="hidden" name="weight" class="weight" value="<?php echo $position->weight ?>">
-            <input type="hidden" name="key" value="<?php echo $position->getId() ?>">
+            <span class="display"><?php echo CHtml::encode($position->weight) ?></span>
+            <input type="hidden" name="weight" class="weight" value="<?php echo CHtml::encode($position->weight) ?>">
+            <input type="hidden" name="key" value="<?php echo CHtml::encode($position->getId()) ?>">
             <span class="plus"><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i></span>
         </form>
 
-        <?php echo '</td><td>' . $position->calcProteins . '</td><td>' . $position->calcFats . '</td><td>' .
-            $position->calcCarbohydrates . '</td><td>' . $position->calcCalories . '</td><td>'; ?>
+        <?php echo '</td><td>' . CHtml::encode($position->calcProteins) . '</td><td>' . CHtml::encode($position->calcFats) . '</td><td>' .
+            CHtml::encode($position->calcCarbohydrates) . '</td><td>' . CHtml::encode($position->calcCalories) . '</td><td>'; ?>
 
         <?php echo CHtml::beginForm(array('site/removePosition'), 'post', array('style' => 'margin: 0')); ?>
-        <?php echo TbHtml::hiddenField('del-key', $position->getId()); ?>
+        <?php echo TbHtml::hiddenField('del-key', CHtml::encode($position->getId())); ?>
         <?php echo CHtml::tag('button', array('name' => 'remove', 'type' => 'submit', 'class' => 'btn btn-xs',
-            'title' => 'Удалить', 'id' => 'del' . $position->id), '<i class="fa fa-times" aria-hidden="true"></i>') ?>
+            'title' => 'Удалить', 'id' => 'del' . CHtml::encode($position->id)), '<i class="fa fa-times" aria-hidden="true"></i>') ?>
         <?php echo CHtml::endForm(); ?>
 
         <?php echo '</td></tr>';

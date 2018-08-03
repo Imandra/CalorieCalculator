@@ -1,7 +1,7 @@
 <?php
 /* @var $this SiteController */
 /* @var $model User */
-/* @var $form CActiveForm */
+/* @var $form TbActiveForm */
 $this->pageTitle = Yii::app()->name . ' - ' . Yii::t('default', 'Sign Up');
 $this->breadcrumbs = array(
     Yii::t('default', 'Sign Up'),

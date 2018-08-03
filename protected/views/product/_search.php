@@ -1,7 +1,7 @@
 <?php
 /* @var $this ProductController */
 /* @var $model Product */
-/* @var $form CActiveForm */
+/* @var $form TbActiveForm */
 ?>
 
 <div class="wide form">
